@@ -27,7 +27,7 @@ const ProductScreen = () => {
 
   return (
     <div>
-      <Layout title={product.name}>
+      <Layout title={product.name} description={product.description}>
         <div className={classes.section} name="me">
           <NextLink href="/" passHref>
             <Link>Back to products</Link>
@@ -45,6 +45,9 @@ const ProductScreen = () => {
           </Grid>
           <Grid item md={3} xs={12}>
             <List>
+              <ListItem>
+                <Typography component="h1">{product.name}</Typography>
+              </ListItem>
               <ListItem>Category: {product.category}</ListItem>
               <ListItem>Brand: {product.brand}</ListItem>
               <ListItem>
