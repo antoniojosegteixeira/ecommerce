@@ -2,14 +2,20 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   bw: {
-    "& a": {
-      padding: "6px",
-    },
+    border: "1px solid white",
+  },
+  bb: {
+    border: "1px solid black",
   },
   navbar: {
     backgroundColor: "black",
     "& a": {
       color: "#fff",
+    },
+  },
+  navLinks: {
+    "& a": {
+      padding: "6px",
     },
   },
   brand: {
@@ -24,6 +30,9 @@ const useStyles = makeStyles({
   },
   footer: {
     textAlign: "center",
+  },
+  section: {
+    marginTop: "10px",
   },
 });
 

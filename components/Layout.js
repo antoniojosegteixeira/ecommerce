@@ -10,12 +10,14 @@ import {
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title }) => {
   const classes = useStyles();
   return (
     <div>
       <Head>
-        <title>Burbank Bike Shop</title>
+        <title>
+          {title ? `${title} - Burbank Bike Shop` : "Burbank Bike Shop"}
+        </title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <AppBar position="static" className={classes.navbar}>
@@ -26,7 +28,7 @@ const Layout = ({ children }) => {
             </Link>
           </NextLink>
           <div className={classes.grow}></div>
-          <div className={classes.bw}>
+          <div className={classes.navLinks}>
             <NextLink href="/cart" passHref>
               <Link>Cart</Link>
             </NextLink>
