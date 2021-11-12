@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Head from "next/head";
 import {
   AppBar,
@@ -7,14 +7,25 @@ import {
   Container,
   Link,
   CssBaseline,
+  Switch,
 } from "@material-ui/core";
+import { AppContext } from "../utils/AppContext";
 import { ThemeProvider } from "@material-ui/core/styles";
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import theme from "../utils/theme";
+import Cookies from "js-cookie";
 
 const Layout = ({ children, title, description }) => {
   const classes = useStyles();
+  const { state, dispatch } = useContext(AppContext);
+  const { darkMode } = state;
+
+  const darkModeChangeHandler = () => {
+    dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
+    const newDarkMode = !darkMode;
+    Cookies.set("darkMode", newDarkMode ? "ON" : "OFF");
+  };
 
   return (
     <div>
@@ -42,6 +53,10 @@ const Layout = ({ children, title, description }) => {
               <NextLink href="/login" passHref>
                 <Link>Login</Link>
               </NextLink>
+              <Switch
+                checked={darkMode}
+                onChange={darkModeChangeHandler}
+              ></Switch>
             </div>
           </Toolbar>
         </AppBar>
