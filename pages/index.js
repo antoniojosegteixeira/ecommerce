@@ -12,13 +12,16 @@ import {
 } from "@material-ui/core";
 import NextLink from "next/link";
 import data from "../utils/data";
+import db from "../utils/db";
+import Product from "../models/Product";
 
-export default function Home() {
+export default function Home(props) {
+  const { products } = props;
   return (
     <Layout>
       <h1>Products</h1>
       <Grid container spacing={3}>
-        {data.products.map((product) => {
+        {products.map((product) => {
           console.log(product.name);
 
           return (
@@ -49,4 +52,16 @@ export default function Home() {
       </Grid>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  await db.connect();
+  const products = await Product.find().lean();
+  await db.disconnect();
+
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    },
+  };
 }

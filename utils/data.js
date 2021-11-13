@@ -2,7 +2,7 @@ const data = {
   products: [
     {
       name: "ANTHEM 29",
-      slug: "anthem-29",
+      slug: "anthem-1",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
       price: 2100,
@@ -15,7 +15,7 @@ const data = {
     },
     {
       name: "ANTHEM 29",
-      slug: "anthem-29",
+      slug: "anthem-2",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
       price: 2100,
@@ -28,7 +28,7 @@ const data = {
     },
     {
       name: "ANTHEM 29",
-      slug: "anthem-29",
+      slug: "anthem-3",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
       price: 2100,
@@ -41,7 +41,7 @@ const data = {
     },
     {
       name: "ANTHEM 29",
-      slug: "anthem-29",
+      slug: "anthem-4",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
       price: 2100,
@@ -54,7 +54,7 @@ const data = {
     },
     {
       name: "ANTHEM 29",
-      slug: "anthem-29",
+      slug: "anthem-5",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
       price: 2100,
