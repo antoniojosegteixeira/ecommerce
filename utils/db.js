@@ -43,6 +43,10 @@ async function disconnect() {
   }
 }
 
-const db = { connect, disconnect };
+async function convertDocToJson(doc) {
+  return JSON.parse(JSON.stringify(doc));
+}
+
+const db = { connect, disconnect, convertDocToJson };
 
 export default db;

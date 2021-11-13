@@ -2,7 +2,8 @@ import React from "react";
 import { useRouter } from "next/dist/client/router";
 import useStyles from "../../utils/styles";
 import data from "../../utils/data";
-
+import db from "../../utils/db";
+import Product from "../../models/Product";
 import Layout from "../../components/Layout";
 import NextLink from "next/link";
 import {
@@ -16,14 +17,9 @@ import {
 } from "@material-ui/core";
 import Image from "next/image";
 
-const ProductScreen = () => {
+const ProductScreen = (props) => {
   const classes = useStyles();
-  const router = useRouter();
-  const { slug } = router.query;
-  const product = data.products.find((e) => e.slug === slug);
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  const { product } = props;
 
   return (
     <div>
@@ -98,3 +94,18 @@ const ProductScreen = () => {
 };
 
 export default ProductScreen;
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+
+  return {
+    props: {
+      product: await db.convertDocToJson(product),
+    },
+  };
+}
