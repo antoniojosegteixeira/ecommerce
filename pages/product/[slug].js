@@ -31,7 +31,9 @@ const ProductScreen = (props) => {
       window.alert("Sorry. Product is out of stock");
       return;
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    const existItem = state.cart.cartItems.find((e) => e._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     router.push("/cart");
   };
 
