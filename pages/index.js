@@ -26,12 +26,12 @@ export default function Home(props) {
 
   const addToCartHandler = async (product) => {
     const { data } = await axios.get(`/api/products/${product._id}`);
-    if (data.countInStock <= 0) {
+    const existItem = state.cart.cartItems.find((e) => e._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
     }
-    const existItem = state.cart.cartItems.find((e) => e._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     router.push("/cart");
   };
