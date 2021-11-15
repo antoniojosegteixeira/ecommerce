@@ -37,8 +37,8 @@ const CartScreen = () => {
   };
 
   const removeItemHandler = async (item) => {
-    const data = await axios.get(`/api/products/${item._id}`);
-    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    dispatch({ type: "CART_REMOVE_ITEM", payload: data });
   };
 
   return (
