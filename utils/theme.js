@@ -3,6 +3,9 @@ import { createTheme } from "@material-ui/core/styles";
 const theme = createTheme({
   typography: {
     color: "red",
+    h1: {
+      fontSize: 40,
+    },
   },
   palette: {
     type: "light",

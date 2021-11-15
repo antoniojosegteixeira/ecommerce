@@ -5,6 +5,7 @@ import axios from "axios";
 import Product from "../../models/Product";
 import Layout from "../../components/Layout";
 import NextLink from "next/link";
+import { useRouter } from "next/dist/client/router";
 import { useContext } from "react";
 import { AppContext } from "../../utils/AppContext";
 import {
@@ -19,6 +20,7 @@ import {
 import Image from "next/image";
 
 const ProductScreen = (props) => {
+  const router = useRouter();
   const classes = useStyles();
   const { product } = props;
   const { state, dispatch } = useContext(AppContext);
@@ -30,6 +32,7 @@ const ProductScreen = (props) => {
       return;
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    router.push("/cart");
   };
 
   return (
