@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      name: "ANTHEM 29",
+      name: "ANTHEM 1",
       slug: "anthem-1",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
@@ -14,7 +14,7 @@ const data = {
         "With an ALUXX SL aluminum frameset that’s engineered with 90mm of rear suspension travel and 100mm up front, this smooth-riding 29er is a master at conquering technical XC terrain.",
     },
     {
-      name: "ANTHEM 29",
+      name: "ANTHEM 2",
       slug: "anthem-2",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
@@ -27,7 +27,7 @@ const data = {
         "With an ALUXX SL aluminum frameset that’s engineered with 90mm of rear suspension travel and 100mm up front, this smooth-riding 29er is a master at conquering technical XC terrain.",
     },
     {
-      name: "ANTHEM 29",
+      name: "ANTHEM 3",
       slug: "anthem-3",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
@@ -40,7 +40,7 @@ const data = {
         "With an ALUXX SL aluminum frameset that’s engineered with 90mm of rear suspension travel and 100mm up front, this smooth-riding 29er is a master at conquering technical XC terrain.",
     },
     {
-      name: "ANTHEM 29",
+      name: "ANTHEM 4",
       slug: "anthem-4",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",
@@ -53,7 +53,7 @@ const data = {
         "With an ALUXX SL aluminum frameset that’s engineered with 90mm of rear suspension travel and 100mm up front, this smooth-riding 29er is a master at conquering technical XC terrain.",
     },
     {
-      name: "ANTHEM 29",
+      name: "ANTHEM 5",
       slug: "anthem-5",
       category: "Mountain Bikes",
       image: "/images/bike1.jpg",

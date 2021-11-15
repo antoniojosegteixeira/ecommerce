@@ -8,6 +8,7 @@ import {
   Link,
   CssBaseline,
   Switch,
+  Badge,
 } from "@material-ui/core";
 import { AppContext } from "../utils/AppContext";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -19,7 +20,7 @@ import Cookies from "js-cookie";
 const Layout = ({ children, title, description }) => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
-  const { darkMode } = state;
+  const { darkMode, cart } = state;
 
   const darkModeChangeHandler = () => {
     dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
@@ -48,7 +49,18 @@ const Layout = ({ children, title, description }) => {
             <div className={classes.grow}></div>
             <div className={classes.navLinks}>
               <NextLink href="/cart" passHref>
-                <Link>Cart</Link>
+                <Link>
+                  {cart.cartItems.length > 0 ? (
+                    <Badge
+                      badgeContent={cart.cartItems.length}
+                      color="secondary"
+                    >
+                      Cart
+                    </Badge>
+                  ) : (
+                    "Cart"
+                  )}
+                </Link>
               </NextLink>
               <NextLink href="/login" passHref>
                 <Link>Login</Link>
