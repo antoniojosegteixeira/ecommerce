@@ -16,11 +16,26 @@ import {
   Select,
   MenuItem,
   Button,
+  Card,
+  List,
+  ListItem,
+  NoSsr,
 } from "@material-ui/core";
+import axios from "axios";
 
 const CartScreen = () => {
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const { cartItems } = state.cart;
+
+  const updateCartHandler = async (item, quantity) => {
+    const data = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock <= 0) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  };
+
   return (
     <Layout title="Shopping Cart">
       <Typography component="h1" variant="h1">
@@ -32,7 +47,7 @@ const CartScreen = () => {
         </div>
       ) : (
         <Grid container spacing={1}>
-          <Grid item md={9} sx={12}>
+          <Grid item md={9} xs={12}>
             <TableContainer>
               <Table>
                 <TableHead>
@@ -45,7 +60,7 @@ const CartScreen = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cartItems?.map((item) => (
+                  {cartItems.map((item) => (
                     <TableRow key={item._id}>
                       <TableCell>
                         <NextLink href={`/product/${item.slug}`} passHref>
@@ -59,6 +74,7 @@ const CartScreen = () => {
                           </Link>
                         </NextLink>
                       </TableCell>
+
                       <TableCell>
                         <NextLink href={`/product/${item.slug}`} passHref>
                           <Link>
@@ -67,7 +83,12 @@ const CartScreen = () => {
                         </NextLink>
                       </TableCell>
                       <TableCell align="right">
-                        <Select value={item.quantity}>
+                        <Select
+                          value={item.quantity}
+                          onChange={(e) =>
+                            updateCartHandler(item, e.target.value)
+                          }
+                        >
                           {[...Array(item.countInStock).keys()].map((x) => (
                             <MenuItem key={x + 1} value={x + 1}>
                               {x + 1}
@@ -77,7 +98,11 @@ const CartScreen = () => {
                       </TableCell>
                       <TableCell align="right">${item.price}</TableCell>
                       <TableCell align="right">
-                        <Button variant="contained" color="secondary">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => removeItemHandler(item)}
+                        >
                           x
                         </Button>
                       </TableCell>
@@ -87,8 +112,23 @@ const CartScreen = () => {
               </Table>
             </TableContainer>
           </Grid>
-          <Grid item md={9} sx={12}>
-            Cart actions
+          <Grid item md={3} xs={12}>
+            <Card>
+              <List>
+                <ListItem>
+                  <Typography component="h2">
+                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
+                    items) : $
+                    {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Button variant="contained" color="primary" fullWidth>
+                    Check Out
+                  </Button>
+                </ListItem>
+              </List>
+            </Card>
           </Grid>
         </Grid>
       )}
@@ -96,4 +136,12 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+const NoSsrComponent = () => {
+  return (
+    <NoSsr>
+      <CartScreen></CartScreen>
+    </NoSsr>
+  );
+};
+
+export default NoSsrComponent;
