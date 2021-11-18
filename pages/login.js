@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useRouter } from "next/router";
+import { AppContext } from "../utils/AppContext";
 import axios from "axios";
 import Layout from "../components/Layout";
 import {
@@ -11,11 +13,19 @@ import {
 } from "@material-ui/core";
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
+import Cookies from "js-cookie";
 
 const LoginScreen = () => {
   const classes = useStyles();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { state, dispatch } = useContext(AppContext);
+  const { userInfo } = state;
+
+  if (userInfo) {
+    router.push("/");
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -24,7 +34,10 @@ const LoginScreen = () => {
         email,
         password,
       });
-      console.log(data);
+
+      dispatch({ type: "USER_LOGIN", payload: data });
+      Cookies.set("userInfo", data);
+      router.push(redirect || "/");
       alert("Login Successful");
     } catch (err) {
       alert(err.response.data.message);
@@ -33,7 +46,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <Layout title="login">
+    <Layout title="Login">
       <form className={classes.form} onSubmit={submitHandler}>
         <Typography>Login</Typography>
         <List>
