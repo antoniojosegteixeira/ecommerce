@@ -15,11 +15,13 @@ import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const classes = useStyles();
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const { state, dispatch } = useContext(AppContext);
   const { userInfo } = state;
 
@@ -31,17 +33,22 @@ const LoginScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
     try {
-      const { data } = await axios.post("/api/login", {
+      const { data } = await axios.post("/api/register", {
+        name,
         email,
         password,
       });
 
-      dispatch({ type: "USER_LOGIN", payload: data });
+      dispatch({ type: "USER_REGISTER", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
       router.push(redirect || "/");
 
-      alert("Login Successful");
+      alert("Register Successful");
     } catch (err) {
       alert(err.response?.data.message);
       console.log(err.response?.data.message);
@@ -49,10 +56,21 @@ const LoginScreen = () => {
   };
 
   return (
-    <Layout title="Login">
+    <Layout title="Register">
       <form className={classes.form} onSubmit={submitHandler}>
-        <Typography>Login</Typography>
+        <Typography>Register</Typography>
         <List>
+          <ListItem>
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              id="name"
+              label="Name"
+              inputProps={{ type: "Name" }}
+            ></TextField>
+          </ListItem>
           <ListItem>
             <TextField
               variant="outlined"
@@ -76,14 +94,25 @@ const LoginScreen = () => {
             ></TextField>
           </ListItem>
           <ListItem>
+            <TextField
+              variant="outlined"
+              fullWidth
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              id="confirmPassword"
+              label="Confirm password"
+              inputProps={{ type: "password" }}
+            ></TextField>
+          </ListItem>
+          <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
-              Login
+              Register
             </Button>
           </ListItem>
           <ListItem>
-            Don't have an account?{` `}
-            <NextLink passHref href="/register">
-              <Link>Register</Link>
+            ALready have an account?{` `}
+            <NextLink passHref href="/login">
+              <Link>Login</Link>
             </NextLink>
           </ListItem>
         </List>
@@ -92,4 +121,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
