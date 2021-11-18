@@ -9,6 +9,7 @@ import {
   CssBaseline,
   Switch,
   Badge,
+  Button,
 } from "@material-ui/core";
 import { AppContext } from "../utils/AppContext";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -20,13 +21,15 @@ import Cookies from "js-cookie";
 const Layout = ({ children, title, description }) => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
-  const { darkMode, cart } = state;
+  const { darkMode, cart, userInfo } = state;
 
   const darkModeChangeHandler = () => {
     dispatch({ type: darkMode ? "DARK_MODE_OFF" : "DARK_MODE_ON" });
     const newDarkMode = !darkMode;
     Cookies.set("darkMode", newDarkMode ? "ON" : "OFF");
   };
+
+  console.log(userInfo, Cookies.get());
 
   return (
     <div>
@@ -62,9 +65,16 @@ const Layout = ({ children, title, description }) => {
                   )}
                 </Link>
               </NextLink>
-              <NextLink href="/login" passHref>
-                <Link>Login</Link>
-              </NextLink>
+              {userInfo ? (
+                <Button className={classes.navbarButton}>
+                  {userInfo.name}
+                </Button>
+              ) : (
+                <NextLink href="/login" passHref>
+                  <Link>Login</Link>
+                </NextLink>
+              )}
+
               <Switch
                 checked={darkMode}
                 onChange={darkModeChangeHandler}

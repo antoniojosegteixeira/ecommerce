@@ -36,12 +36,13 @@ const LoginScreen = () => {
       });
 
       dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", data);
+      Cookies.set("userInfo", JSON.stringify(data));
       router.push(redirect || "/");
+
       alert("Login Successful");
     } catch (err) {
-      alert(err.response.data.message);
-      console.log(err.response.data.message);
+      alert(err.response?.data.message);
+      console.log(err.response?.data.message);
     }
   };
 

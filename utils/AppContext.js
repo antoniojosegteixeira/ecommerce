@@ -10,7 +10,7 @@ const initialState = {
       : [],
   },
   userInfo: Cookies.get("userInfo")
-    ? JSON.parse(JSON.stringify(Cookies.get("userInfo")))
+    ? JSON.parse(Cookies.get("userInfo"))
     : null,
 };
 
