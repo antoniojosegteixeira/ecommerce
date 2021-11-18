@@ -22,10 +22,13 @@ import {
   NoSsr,
 } from "@material-ui/core";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const CartScreen = () => {
+  const router = useRouter();
   const { state, dispatch } = useContext(AppContext);
   const { cartItems } = state.cart;
+  const { userInfo } = state;
 
   const updateCartHandler = async (item, quantity) => {
     const data = await axios.get(`/api/products/${item._id}`);
@@ -39,6 +42,13 @@ const CartScreen = () => {
   const removeItemHandler = async (item) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     dispatch({ type: "CART_REMOVE_ITEM", payload: data });
+  };
+
+  const checkOutHandler = () => {
+    if (!userInfo) {
+      router.push("/login?redirect=/shipping");
+    }
+    router.push("/shipping");
   };
 
   return (
@@ -128,7 +138,12 @@ const CartScreen = () => {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button variant="contained" color="primary" fullWidth>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={checkOutHandler}
+                  >
                     Check Out
                   </Button>
                 </ListItem>

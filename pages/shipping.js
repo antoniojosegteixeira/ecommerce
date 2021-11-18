@@ -9,11 +9,7 @@ const ShippingScreen = () => {
   const { state, dispatch } = useContext(AppContext);
   const { userInfo } = state;
 
-  if (!userInfo) {
-    router.push("/login?redirect=/shipping");
-  }
-
-  return <Layout title="login"></Layout>;
+  return <Layout title="Shipping"></Layout>;
 };
 
 export default ShippingScreen;
