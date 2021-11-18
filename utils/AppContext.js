@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { createContext, useReducer } from "react";
 export const AppContext = createContext();
 
+// Initial values
 const initialState = {
   darkMode: Cookies.get("darkMode") === "ON" ? true : false,
   cart: {
@@ -14,6 +15,7 @@ const initialState = {
     : null,
 };
 
+// Reducers
 const reducer = (state, action) => {
   switch (action.type) {
     case "DARK_MODE_ON":
@@ -51,6 +53,9 @@ const reducer = (state, action) => {
 
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
+
+    case "USER_LOGOUT":
+      return { ...state, userInfo: null, cart: { cartItems: [] } };
 
     default:
       return state;
