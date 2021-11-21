@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
 import Layout from "../components/Layout";
+import CheckoutWizard from "../components/CheckoutWizard";
 import {
   List,
   ListItem,
@@ -9,6 +10,9 @@ import {
   TextField,
   Button,
   Link,
+  Step,
+  Stepper,
+  StepLabel,
 } from "@material-ui/core";
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
@@ -83,6 +87,9 @@ const ShippingScreen = () => {
     <Layout title="Shipping">
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
         <Typography>Shipping</Typography>
+
+        <CheckoutWizard activeStep={1} />
+
         <List>
           <ListItem>
             <Controller
