@@ -14,26 +14,41 @@ import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import { MenuItem } from "@mui/material";
 
 const ShippingScreen = () => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
-  const { userInfo } = state;
+
+  // Context state
+  const {
+    userInfo,
+    cart: { userAddress },
+  } = state;
+
+  // useForm
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
   } = useForm();
 
+  // Redirect
+  // Default form values
   useEffect(() => {
     if (!userInfo) {
       router.push("/login");
     }
+
+    setValue("fullName", userAddress.fullName);
+    setValue("address", userAddress.address);
+    setValue("city", userAddress.city);
+    setValue("state", userAddress.state);
+    setValue("postalCode", userAddress.postalCode);
   }, []);
 
+  // Submit
   const submitHandler = async ({
     fullName,
     address,
@@ -41,8 +56,6 @@ const ShippingScreen = () => {
     state,
     postalCode,
   }) => {
-    closeSnackbar();
-
     dispatch({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
@@ -64,10 +77,6 @@ const ShippingScreen = () => {
       })
     );
     router.push("/payment");
-
-    enqueueSnackbar("Address added successfully", {
-      variant: "success",
-    });
   };
 
   return (
