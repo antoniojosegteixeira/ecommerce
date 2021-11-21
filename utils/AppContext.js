@@ -9,6 +9,9 @@ const initialState = {
     cartItems: Cookies.get("cartItems")
       ? JSON.parse(Cookies.get("cartItems"))
       : [],
+    userAddress: Cookies.get("userAddress")
+      ? JSON.parse(Cookies.get("userAddress"))
+      : {},
   },
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
@@ -55,7 +58,14 @@ const reducer = (state, action) => {
       return { ...state, userInfo: action.payload };
 
     case "USER_LOGOUT":
-      return { ...state, userInfo: null, cart: { cartItems: [] } };
+      return {
+        ...state,
+        userInfo: null,
+        cart: { cartItems: [], userAddress: {} },
+      };
+
+    case "SAVE_SHIPPING_ADDRESS":
+      return { ...state, cart: { ...state.cart, userAddress: action.payload } };
 
     default:
       return state;
