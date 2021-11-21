@@ -8,7 +8,6 @@ const CheckoutWizard = ({ activeStep }) => {
     "Payment Method",
     "Place Order",
   ];
-  console.log(activeStep);
   return (
     <Stepper activeStep={activeStep} alternativeLabel>
       {stepArray.map((step) => (
