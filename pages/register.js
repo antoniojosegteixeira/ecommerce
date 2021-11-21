@@ -49,11 +49,13 @@ const RegisterScreen = () => {
       });
       console.log(data);
 
-      dispatch({ type: "USER_REGISTER", payload: data });
+      dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
       router.push("/");
 
-      enqueueSnackbar("Register Successful");
+      enqueueSnackbar("Register Successful", {
+        variant: "success",
+      });
     } catch (err) {
       enqueueSnackbar(err.response?.data.message, { variant: "error" });
       console.log(err);
@@ -187,7 +189,7 @@ const RegisterScreen = () => {
             </Button>
           </ListItem>
           <ListItem>
-            ALready have an account?{` `}
+            Already have an account?{` `}
             <NextLink passHref href="/login">
               <Link>Login</Link>
             </NextLink>
