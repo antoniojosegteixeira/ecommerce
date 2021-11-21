@@ -15,6 +15,7 @@ import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -26,6 +27,7 @@ const LoginScreen = () => {
     control,
     formState: { errors },
   } = useForm();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (userInfo) {
@@ -34,24 +36,20 @@ const LoginScreen = () => {
   }, []);
 
   const submitHandler = async ({ email, password }) => {
+    closeSnackbar();
     try {
       const { data } = await axios.post("/api/login", {
         email,
         password,
       });
-
       dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
-      router.push(redirect || "/");
-
-      alert("Login Successful");
+      router.push("/");
     } catch (err) {
-      alert(err.response?.data.message);
-      console.log(err.response?.data.message);
+      console.log("erro", err);
+      enqueueSnackbar(err.response?.data.message, { variant: "error" });
     }
   };
-
-  console.log(errors);
 
   return (
     <Layout title="Login">
