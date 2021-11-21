@@ -21,6 +21,7 @@ const ShippingScreen = () => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
+  const { userInfo } = state;
   const {
     handleSubmit,
     control,
@@ -28,7 +29,7 @@ const ShippingScreen = () => {
   } = useForm();
 
   useEffect(() => {
-    if (userInfo) {
+    if (!userInfo) {
       router.push("/login");
     }
   }, []);
@@ -87,7 +88,7 @@ const ShippingScreen = () => {
                   helperText={
                     errors.fullName
                       ? errors.fullName.type === "minLength"
-                        ? "Full name should have at least 2 characters"
+                        ? "Enter a valid name"
                         : "Full name is required"
                       : ""
                   }
@@ -115,7 +116,7 @@ const ShippingScreen = () => {
                   error={Boolean(errors.address)}
                   helperText={
                     errors.address
-                      ? errors.address.type === "pattern"
+                      ? errors.address.type === "minLength"
                         ? "Address should have at least 5 characters"
                         : "Address is required"
                       : ""
@@ -145,7 +146,7 @@ const ShippingScreen = () => {
                   helperText={
                     errors.city
                       ? errors.city.type === "minLength"
-                        ? "City should have at least 3 characters"
+                        ? "Enter a valid city"
                         : "City is required"
                       : ""
                   }
@@ -203,7 +204,7 @@ const ShippingScreen = () => {
                   helperText={
                     errors.postalCode
                       ? errors.postalCode.type === "pattern"
-                        ? "Postal code must be valid"
+                        ? "Enter a valid postal code"
                         : "Postal code is required"
                       : ""
                   }
@@ -215,7 +216,7 @@ const ShippingScreen = () => {
               defaultValue=""
               rules={{
                 required: true,
-                pattern: /^[0-9]{2}.[0-9]{3}-[0-9]{3}$/,
+                pattern: /^[0-9]{8}$/,
               }}
             />
           </ListItem>
