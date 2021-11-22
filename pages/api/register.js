@@ -23,7 +23,7 @@ handler.post(async (req, res) => {
 
   const createdUser = newUser.save();
   await db.disconnect();
-  const token = signToken(createdUser);
+  const token = signToken(createdUser._id);
 
   return res.send({
     token,
