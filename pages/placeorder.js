@@ -25,7 +25,6 @@ import {
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
-import { Controller, useForm } from "react-hook-form";
 
 const PlaceOrderScreen = () => {
   const router = useRouter();
@@ -43,6 +42,15 @@ const PlaceOrderScreen = () => {
       router.push("/payment");
     }
   });
+
+  const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;
+
+  const itemsPrice = round(
+    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+  );
+  const shippingPrice = itemsPrice > 200 ? 0 : 15;
+  const totalPrice = round(itemsPrice + shippingPrice);
+
   return (
     <NoSsr>
       <Layout title="Place Order">
@@ -135,6 +143,40 @@ const PlaceOrderScreen = () => {
               <List>
                 <ListItem>
                   <Typography component="h2">Order Summary</Typography>
+                </ListItem>
+                <ListItem>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Typography>Items:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography align="right">${itemsPrice}</Typography>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+                <ListItem>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Typography>Shipping:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography align="right">${shippingPrice}</Typography>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+                <ListItem>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Typography>
+                        <strong>Total</strong>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography align="right">
+                        <strong>${totalPrice}</strong>
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </ListItem>
                 <ListItem>
                   <Button variant="contained" color="primary" fullWidth>
