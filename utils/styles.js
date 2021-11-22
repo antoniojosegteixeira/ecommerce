@@ -43,6 +43,7 @@ const useStyles = makeStyles({
     color: "white",
     textTransform: "initial",
   },
+  section: {},
 });
 
 export default useStyles;
