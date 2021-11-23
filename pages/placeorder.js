@@ -46,7 +46,7 @@ const PlaceOrderScreen = () => {
     if (!paymentMethod) {
       router.push("/payment");
     }
-  });
+  }, []);
 
   // Calculating item price
   const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;

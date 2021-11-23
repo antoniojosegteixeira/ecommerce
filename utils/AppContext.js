@@ -64,7 +64,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         userInfo: null,
-        cart: { cartItems: [], userAddress: {}, paymentMethod: undefined },
+        cart: { cartItems: [], userAddress: {}, paymentMethod: "" },
       };
 
     case "SAVE_SHIPPING_ADDRESS":
@@ -74,6 +74,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: { ...state.cart, paymentMethod: action.payload },
+      };
+
+    case "CART_CLEAR":
+      return {
+        ...state,
+        cart: { cartItems: [] },
       };
 
     default:
