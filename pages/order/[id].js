@@ -23,7 +23,6 @@ import {
 } from "@material-ui/core";
 import NextLink from "next/link";
 import useStyles from "../../utils/styles";
-import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
 import { getError } from "../../utils/error";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
@@ -39,6 +38,16 @@ function reducer(state, action) {
 
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
+
+    case "PAY_REQUEST":
+      return { ...state, loadingPay: true };
+
+    case "PAY_SUCCESS":
+      return { ...state, loading: false, successPay: true };
+
+    case "PAY_FAIL":
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
@@ -70,6 +79,7 @@ const OrderScreen = ({ params }) => {
     itemsPrice,
     shippingPrice,
     totalPrice,
+    isPaid,
   } = order;
 
   // Paypal reducer
@@ -81,6 +91,8 @@ const OrderScreen = ({ params }) => {
       router.push("/login");
     }
 
+    console.log("loaded");
+
     // Request to api
     // Get the full order through the id
     const fetchOrder = async () => {
@@ -91,7 +103,6 @@ const OrderScreen = ({ params }) => {
             Authorization: `Bearer ${userInfo.token}`,
           },
         });
-
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) });
@@ -104,16 +115,18 @@ const OrderScreen = ({ params }) => {
     } else {
       // Paypal script
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get("/api/keys/paypal", {
+        const { data } = await axios.get("/api/keys/paypal", {
           headers: {
             authorization: `Bearer ${userInfo.token}`,
           },
         });
 
+        console.log(order);
+
         paypalDispatch({
           type: "resetOptions",
           value: {
-            "client-id": clientId,
+            "client-id": data,
             currency: "BRL",
           },
         });
@@ -124,7 +137,7 @@ const OrderScreen = ({ params }) => {
     }
   }, [order]);
 
-  // Create order
+  // Create paypal order
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -139,21 +152,16 @@ const OrderScreen = ({ params }) => {
       });
   }
 
-  // On Approve
-  // Change backend status to paid
+  // On Paypal payment approval
+  // Must change backend status to paid
   function onApprove(data, actions) {
     return actions.order.capture().then(async (details) => {
       try {
         dispatch({ type: "PAY_REQUEST" });
-        const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
-          details,
-          {
-            headers: {
-              authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
+        const { data } = await axios.put(`/api/orders/${order._id}/pay`, {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        });
+
         dispatch({ type: "PAY_SUCCESS", payload: data });
         enqueueSnackbar("Order is paid", { variant: "success" });
       } catch (err) {
@@ -307,16 +315,18 @@ const OrderScreen = ({ params }) => {
                       </Grid>
                     </Grid>
                   </ListItem>
-                  {isPaid && (
+                  {!isPaid && (
                     <ListItem>
                       {isPending ? (
                         <CircularProgress />
                       ) : (
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        />
+                        <div className={classes.fullWidth}>
+                          <PayPalButtons
+                            createOrder={createOrder}
+                            onApprove={onApprove}
+                            onError={onError}
+                          />
+                        </div>
                       )}
                     </ListItem>
                   )}
