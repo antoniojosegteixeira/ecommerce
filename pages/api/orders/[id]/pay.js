@@ -10,11 +10,11 @@ const handler = nc({
 
 handler.use(isAuth);
 
-handler.get(async (req, res) => {
+handler.put(async (req, res) => {
   await db.connect();
   const order = await Order.findById(req.query.id);
 
-  if (order && order.user === req.userId) {
+  if (order && order.user.toString() === req.userId.toString()) {
     order.isPaid = true;
     order.paidAt = Date.now();
     order.paymentResult = {

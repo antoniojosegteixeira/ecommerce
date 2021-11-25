@@ -48,6 +48,9 @@ function reducer(state, action) {
     case "PAY_FAIL":
       return { ...state, loading: false, error: action.payload };
 
+    case "PAY_RESET":
+      return { ...state, loading: false, successPay: false, error: "" };
+
     default:
       return state;
   }
@@ -66,11 +69,14 @@ const OrderScreen = ({ params }) => {
   const { userInfo } = state;
 
   // Component's own reducer
-  const [{ loading, error, order }, dispatch] = useReducer(reducer, {
-    order: {},
-    loading: true,
-    error: "",
-  });
+  const [{ loading, error, order, successPay }, dispatch] = useReducer(
+    reducer,
+    {
+      order: {},
+      loading: true,
+      error: "",
+    }
+  );
 
   const {
     userAddress,
@@ -91,8 +97,6 @@ const OrderScreen = ({ params }) => {
       router.push("/login");
     }
 
-    console.log("loaded");
-
     // Request to api
     // Get the full order through the id
     const fetchOrder = async () => {
@@ -110,8 +114,12 @@ const OrderScreen = ({ params }) => {
     };
 
     // Checking if already has the order loaded
-    if (!order._id || (order._id && order._id !== orderId)) {
+    if (!order._id || successPay || (order._id && order._id !== orderId)) {
       fetchOrder();
+      if (successPay) {
+        dispatch({ type: "PAY_RESET" });
+        console.log("reseting");
+      }
     } else {
       // Paypal script
       const loadPaypalScript = async () => {
@@ -135,7 +143,7 @@ const OrderScreen = ({ params }) => {
       };
       loadPaypalScript();
     }
-  }, [order]);
+  }, [order, successPay]);
 
   // Create paypal order
   function createOrder(data, actions) {
@@ -158,9 +166,13 @@ const OrderScreen = ({ params }) => {
     return actions.order.capture().then(async (details) => {
       try {
         dispatch({ type: "PAY_REQUEST" });
-        const { data } = await axios.put(`/api/orders/${order._id}/pay`, {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
+        const { data } = await axios.put(
+          `/api/orders/${order._id}/pay`,
+          details,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
 
         dispatch({ type: "PAY_SUCCESS", payload: data });
         enqueueSnackbar("Order is paid", { variant: "success" });
