@@ -1,9 +1,8 @@
-import React, { useEffect, useContext, useState, useReducer } from "react";
+import React, { useEffect, useContext, useReducer } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../../utils/AppContext";
 import axios from "axios";
 import Layout from "../../components/Layout";
-import CheckoutWizard from "../../components/CheckoutWizard";
 import Image from "next/image";
 import {
   Grid,

@@ -19,7 +19,7 @@ import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import theme from "../utils/theme";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 const Layout = ({ children, title, description }) => {
   const classes = useStyles();
@@ -40,8 +40,11 @@ const Layout = ({ children, title, description }) => {
   };
 
   // Close Menu
-  const loginMenuCloseHandler = () => {
+  const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
+    if (redirect) {
+      router.push(redirect);
+    }
   };
 
   // Logout
@@ -103,8 +106,18 @@ const Layout = ({ children, title, description }) => {
                     open={Boolean(anchorEl)}
                     onClose={loginMenuCloseHandler}
                   >
-                    <MenuItem onClick={loginMenuCloseHandler}>Profile</MenuItem>
-                    <MenuItem onClick={loginMenuCloseHandler}>Account</MenuItem>
+                    <MenuItem
+                      onClick={(e) => loginMenuCloseHandler(e, "/profile")}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) =>
+                        loginMenuCloseHandler(e, "/order-history")
+                      }
+                    >
+                      Order History
+                    </MenuItem>
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>
                 </>
