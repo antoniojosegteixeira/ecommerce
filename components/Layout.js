@@ -70,7 +70,9 @@ const Layout = ({ children, title, description }) => {
           <Toolbar>
             <NextLink href="/" passHref>
               <Link>
-                <Typography>Burbank Bike Shop</Typography>
+                <Typography component="span" variant="h5">
+                  Burbank Bike Shop
+                </Typography>
               </Link>
             </NextLink>
             <div className={classes.grow}></div>
@@ -130,7 +132,7 @@ const Layout = ({ children, title, description }) => {
           </Toolbar>
         </AppBar>
 
-        <Container className={classes.main}>{children}</Container>
+        <div className={classes.main}>{children}</div>
         <footer className={classes.footer}>
           <Typography variant="h1">Built by Antônio Teixeira</Typography>
         </footer>

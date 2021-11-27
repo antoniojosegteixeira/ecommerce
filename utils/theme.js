@@ -1,39 +1,52 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { orange } from "@material-ui/core/colors";
 
 const darkGray = "#212529";
 
-const theme = createTheme({
-  typography: {
-    color: darkGray,
-    h1: {
-      fontFamily: "Staatliches",
+const theme = responsiveFontSizes(
+  createTheme({
+    typography: {
+      color: darkGray,
+      h1: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      h2: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      h3: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      h4: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      h5: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      subtitle1: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
+      button: {
+        fontFamily: "Staatliches",
+        color: darkGray,
+      },
     },
-    h2: {
-      fontFamily: "Staatliches",
+    palette: {
+      type: "light",
+      primary: {
+        main: orange[500],
+        contrastText: "#fff",
+      },
+      secondary: {
+        main: "#fff",
+      },
     },
-    h3: {
-      fontFamily: "Staatliches",
-    },
-    h4: {
-      fontFamily: "Staatliches",
-    },
-    h5: {
-      fontFamily: "Staatliches",
-    },
-    subtitle1: {
-      fontFamily: "Staatliches",
-    },
-  },
-  palette: {
-    type: "light",
-    primary: {
-      main: orange[500],
-    },
-    secondary: {
-      main: "#fff",
-    },
-  },
-});
+  })
+);
 
 export default theme;
