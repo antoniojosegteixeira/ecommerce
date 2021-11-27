@@ -62,10 +62,13 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "flex-end",
     },
+    [theme.breakpoints.up("md")]: {
+      paddingRight: "1rem",
+    },
   },
   heroHeading: {
     [theme.breakpoints.up("md")]: {
-      fontSize: "7.5rem",
+      fontSize: "6.5rem",
     },
   },
   mainButton: {

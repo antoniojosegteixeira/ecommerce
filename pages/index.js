@@ -19,16 +19,22 @@ export default function Home() {
       <div
         className={classes.background}
         style={{
-          minHeight: "110vh",
           backgroundImage: "url(/images/bikehero.jpg)",
           backgroundPosition: "0 70%",
+          minHeight: "100vh",
           display: "flex",
           alignItems: "center",
+          padding: "0 1vw",
         }}
       >
         <List className={classes.heroTitleList}>
           <ListItem>
-            <Typography component="h1" variant="h1" align="right">
+            <Typography
+              component="h1"
+              variant="h1"
+              align="right"
+              className={classes.heroHeading}
+            >
               YOUR ADVENTURE <br /> STARTS NOW
             </Typography>
           </ListItem>
