@@ -123,8 +123,10 @@ const useStyles = makeStyles((theme) => ({
   },
   serviceCard: {
     backgroundColor: grey[900],
-    padding: "3rem",
+    padding: "3rem 1rem",
     borderRadius: "0.3rem",
+    maxWidth: "406px",
+    height: "100%",
   },
   centeredTitle: {
     width: "100%",

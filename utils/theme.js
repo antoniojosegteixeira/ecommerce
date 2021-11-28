@@ -28,11 +28,11 @@ const theme = responsiveFontSizes(
         color: darkGray,
       },
       subtitle1: {
-        fontFamily: "Staatliches",
-        color: darkGray,
+        fontSize: 20,
+        fontWeight: 100,
       },
       body1: {
-        fontSize: 20,
+        fontSize: "1rem",
         fontWeight: 100,
       },
       button: {

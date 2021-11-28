@@ -135,6 +135,7 @@ export default function Home() {
                     <Typography
                       color="secondary"
                       variant="h2"
+                      component="h4"
                       align="center"
                       style={{ width: "100%" }}
                     >
@@ -152,20 +153,17 @@ export default function Home() {
                       BIKE SHOP
                     </Typography>
                   </ListItem>
-                </List>
-              </Box>
-            </Grid>
-            <Grid md={4} item>
-              <Box className={classes.serviceCard}>
-                <List>
-                  <ListItem></ListItem>
                   <ListItem>
                     <Typography
-                      component="span"
-                      variant="h5"
                       align="center"
-                      style={{ width: "100%" }}
-                    ></Typography>
+                      variant="body1"
+                      color="secondary"
+                    >
+                      We want you to have a bike that you'll enjoy riding for
+                      years to come. Our sales and mechanical staff have a
+                      reputation for quality, professionalism and expertise.
+                      Come visit us today!
+                    </Typography>
                   </ListItem>
                 </List>
               </Box>
@@ -173,14 +171,78 @@ export default function Home() {
             <Grid md={4} item>
               <Box className={classes.serviceCard}>
                 <List>
-                  <ListItem></ListItem>
+                  <ListItem>
+                    <Typography
+                      color="secondary"
+                      variant="h2"
+                      component="h4"
+                      align="center"
+                      style={{ width: "100%" }}
+                    >
+                      <i className="fas fa-wrench"></i>
+                    </Typography>
+                  </ListItem>
                   <ListItem>
                     <Typography
                       component="span"
-                      variant="h5"
+                      variant="h4"
                       align="center"
                       style={{ width: "100%" }}
-                    ></Typography>
+                      color="secondary"
+                    >
+                      REPAIR & SERVICE
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      align="center"
+                      variant="body1"
+                      color="secondary"
+                    >
+                      We’re here to help you ride farther, ride happier and get
+                      the most out of your bike. Our expert techs are here to
+                      service your mountain, road, BMX or e-bike, plus give
+                      friendly advice.
+                    </Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Grid>
+            <Grid md={4} item>
+              <Box className={classes.serviceCard}>
+                <List>
+                  <ListItem>
+                    <Typography
+                      color="secondary"
+                      variant="h2"
+                      component="h4"
+                      align="center"
+                      style={{ width: "100%" }}
+                    >
+                      <i className="fas fa-cogs"></i>
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      component="span"
+                      variant="h4"
+                      align="center"
+                      style={{ width: "100%" }}
+                      color="secondary"
+                    >
+                      CUSTOM BUILD
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      align="center"
+                      variant="body1"
+                      color="secondary"
+                    >
+                      Dreaming of a custom bike, built with your choice of frame
+                      and components? We ensure that your new bike is perfectly
+                      fitted and precision built by our specialist team.
+                    </Typography>
                   </ListItem>
                 </List>
               </Box>
