@@ -81,6 +81,21 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: orange[400],
     },
+    borderRadius: 0,
+  },
+  sectionFeatured: {
+    minHeight: "500px",
+    backgroundColor: "#000",
+    padding: "1rem",
+    [theme.breakpoints.up("md")]: {
+      padding: "3rem",
+    },
+  },
+  centerOnSm: {
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "center",
+    },
+    justifyContent: "start",
   },
 }));
 

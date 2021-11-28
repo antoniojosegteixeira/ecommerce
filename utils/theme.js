@@ -31,6 +31,10 @@ const theme = responsiveFontSizes(
         fontFamily: "Staatliches",
         color: darkGray,
       },
+      body1: {
+        fontSize: 20,
+        fontWeight: 100,
+      },
       button: {
         fontFamily: "Staatliches",
         color: darkGray,

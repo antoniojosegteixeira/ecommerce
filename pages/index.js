@@ -3,7 +3,15 @@ import { useRouter } from "next/dist/client/router";
 import { AppContext } from "../utils/AppContext";
 import Layout from "../components/Layout";
 import axios from "axios";
-import { Typography, List, ListItem } from "@material-ui/core";
+import {
+  Typography,
+  List,
+  ListItem,
+  Grid,
+  Container,
+  Box,
+} from "@material-ui/core";
+import Image from "next/image";
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import bikehero from "../public/images/bikehero.jpg";
@@ -38,11 +46,54 @@ export default function Home() {
               YOUR ADVENTURE <br /> STARTS NOW
             </Typography>
           </ListItem>
-
-          <ListItem>
+          <ListItem textAlign="center">
             <Button className={classes.mainButton}>SHOP NOW</Button>
           </ListItem>
         </List>
+      </div>
+      <div className={classes.sectionFeatured}>
+        <Grid container spacing={3}>
+          <Grid item md={6}>
+            <List>
+              <ListItem>
+                <Image
+                  src="/images/rockymountain.png"
+                  alt="Rocky Mountain"
+                  width="500px"
+                  height="60px"
+                ></Image>
+              </ListItem>
+              <ListItem>
+                <Typography
+                  component="h3"
+                  variant="h3"
+                  color="secondary"
+                  style={{ lineHeight: 0.9 }}
+                >
+                  BEST GEAR, BEST RIDE
+                </Typography>
+              </ListItem>
+              <ListItem>
+                <Typography color="secondary" variant="body1">
+                  With a pedigree of success on the most aggressive Enduro World
+                  Series tracks, the all-carbon Slayer’s descending aptitude and
+                  uncanny ability to hold speed in rugged terrain are matched
+                  with surprising pedalling efficiency.
+                </Typography>
+              </ListItem>
+              <ListItem>
+                <Button className={classes.mainButton}>KNOW MORE</Button>
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item md={6} style={{ padding: "1rem" }}>
+            <Image
+              src="/images/section-bike.png"
+              width={800}
+              height={450}
+            ></Image>
+          </Grid>
+        </Grid>
       </div>
     </Layout>
   );
