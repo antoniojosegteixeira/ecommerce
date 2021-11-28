@@ -8,26 +8,31 @@ export default function ReactCarousel() {
 
   return (
     <NoSsr>
-      <Container>
-        <Grid container spacing={3} justifyContent="center">
-          {topProducts.map((item) => {
-            return (
-              <Grid md={4} item key={item.title} style={{ maxWidth: "430px" }}>
-                <Box className={classes.topProductCard}>
-                  <List>
-                    <ListItem>
-                      <img src={item.image} style={{ width: "100%" }} />
-                    </ListItem>
-                    <ListItem>
-                      <Typography component="span">{item.title}</Typography>
-                    </ListItem>
-                  </List>
-                </Box>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
+      <Grid container spacing={3} justifyContent="center">
+        {topProducts.map((item) => {
+          return (
+            <Grid md={4} item key={item.title} style={{ maxWidth: "430px" }}>
+              <Box className={classes.topProductCard}>
+                <List>
+                  <ListItem>
+                    <img src={item.image} style={{ width: "100%" }} />
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      component="span"
+                      variant="h5"
+                      align="center"
+                      style={{ width: "100%" }}
+                    >
+                      {item.title}
+                    </Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Grid>
+          );
+        })}
+      </Grid>
     </NoSsr>
   );
 }

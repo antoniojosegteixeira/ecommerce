@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div
+      <Box
         className={classes.background}
         style={{
           backgroundImage: "url(/images/bikehero.jpg)",
@@ -51,8 +51,8 @@ export default function Home() {
             <Button className={classes.mainButton}>SHOP NOW</Button>
           </ListItem>
         </List>
-      </div>
-      <div className={classes.sectionFeatured}>
+      </Box>
+      <Box className={classes.sectionFeatured}>
         <Grid container spacing={3}>
           <Grid item md={6}>
             <List>
@@ -95,13 +95,13 @@ export default function Home() {
             ></Image>
           </Grid>
         </Grid>
-      </div>
+      </Box>
       <Box className={classes.topProductsSection}>
         <Container>
           <List>
-            <ListItem>
+            <ListItem style={{ padding: 0 }}>
               <Typography
-                style={{ width: "100%" }}
+                className={classes.centeredTitle}
                 component="h3"
                 variant="h3"
                 color="primary"
@@ -110,10 +110,82 @@ export default function Home() {
                 TOP PRODUCTS
               </Typography>
             </ListItem>
-            <ListItem>
+            <ListItem style={{ padding: 0 }}>
               <ReactCarousel />
             </ListItem>
           </List>
+        </Container>
+      </Box>
+      <Box className={classes.ourServicesSection}>
+        <Container>
+          <Typography
+            className={classes.centeredTitle}
+            component="h3"
+            variant="h3"
+            color="primary"
+            align="center"
+          >
+            OUR SERVICES
+          </Typography>
+          <Grid container spacing={3} justifyContent="center">
+            <Grid md={4} item>
+              <Box className={classes.serviceCard}>
+                <List>
+                  <ListItem>
+                    <Typography
+                      color="secondary"
+                      variant="h2"
+                      align="center"
+                      style={{ width: "100%" }}
+                    >
+                      <i className="fas fa-bicycle"></i>
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography
+                      component="span"
+                      variant="h4"
+                      align="center"
+                      style={{ width: "100%" }}
+                      color="secondary"
+                    >
+                      BIKE SHOP
+                    </Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Grid>
+            <Grid md={4} item>
+              <Box className={classes.serviceCard}>
+                <List>
+                  <ListItem></ListItem>
+                  <ListItem>
+                    <Typography
+                      component="span"
+                      variant="h5"
+                      align="center"
+                      style={{ width: "100%" }}
+                    ></Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Grid>
+            <Grid md={4} item>
+              <Box className={classes.serviceCard}>
+                <List>
+                  <ListItem></ListItem>
+                  <ListItem>
+                    <Typography
+                      component="span"
+                      variant="h5"
+                      align="center"
+                      style={{ width: "100%" }}
+                    ></Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
     </Layout>

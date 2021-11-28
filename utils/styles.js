@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/core";
-import { orange } from "@material-ui/core/colors";
+import { orange, grey } from "@material-ui/core/colors";
+
+const darkGray = "#0e0e0e";
 
 const useStyles = makeStyles((theme) => ({
   bw: {
@@ -97,14 +99,36 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "start",
   },
   topProductsSection: {
-    backgroundColor: "#0e0e0e",
+    backgroundColor: darkGray,
     paddingTop: "2rem",
     paddingBottom: "4rem",
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "7rem",
+      paddingRight: "7rem",
+    },
   },
   topProductCard: {
     backgroundColor: "#b4b4b4",
     padding: "1rem",
     borderRadius: "0.3rem",
+  },
+  ourServicesSection: {
+    backgroundColor: darkGray,
+    paddingTop: "2rem",
+    paddingBottom: "4rem",
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: "7rem",
+      paddingRight: "7rem",
+    },
+  },
+  serviceCard: {
+    backgroundColor: grey[900],
+    padding: "3rem",
+    borderRadius: "0.3rem",
+  },
+  centeredTitle: {
+    width: "100%",
+    paddingBottom: "1rem",
   },
 }));
 
