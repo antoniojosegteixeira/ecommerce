@@ -16,6 +16,7 @@ import NextLink from "next/link";
 import useStyles from "../utils/styles";
 import bikehero from "../public/images/bikehero.jpg";
 import { Button } from "@mui/material";
+import ReactCarousel from "../components/ReactCarousel";
 
 export default function Home() {
   const router = useRouter();
@@ -95,6 +96,26 @@ export default function Home() {
           </Grid>
         </Grid>
       </div>
+      <Box className={classes.topProductsSection}>
+        <Container>
+          <List>
+            <ListItem>
+              <Typography
+                style={{ width: "100%" }}
+                component="h3"
+                variant="h3"
+                color="primary"
+                align="center"
+              >
+                TOP PRODUCTS
+              </Typography>
+            </ListItem>
+            <ListItem>
+              <ReactCarousel />
+            </ListItem>
+          </List>
+        </Container>
+      </Box>
     </Layout>
   );
 }
