@@ -10,12 +10,13 @@ import {
   Grid,
   Container,
   Box,
+  Button,
+  Link,
 } from "@material-ui/core";
-import Image from "next/image";
 import NextLink from "next/link";
+import Image from "next/image";
 import useStyles from "../utils/styles";
 import bikehero from "../public/images/bikehero.jpg";
-import { Button } from "@mui/material";
 import ReactCarousel from "../components/ReactCarousel";
 import GoogleMap from "../components/GoogleMap";
 
@@ -48,7 +49,16 @@ export default function Home() {
             </Typography>
           </ListItem>
           <ListItem textAlign="center">
-            <Button className={classes.mainButton}>SHOP NOW</Button>
+            <NextLink href="/store" passHref>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.mainButton}
+                as="a"
+              >
+                SHOP NOW
+              </Button>
+            </NextLink>
           </ListItem>
         </List>
       </Box>

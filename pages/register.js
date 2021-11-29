@@ -65,7 +65,9 @@ const RegisterScreen = () => {
   return (
     <Layout title="Register">
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
-        <Typography>Register</Typography>
+        <Typography component="h2" variant="h2" align="center">
+          Register
+        </Typography>
         <List>
           <ListItem>
             <Controller
@@ -185,7 +187,7 @@ const RegisterScreen = () => {
           </ListItem>
           <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
-              Register
+              SUBMIT
             </Button>
           </ListItem>
           <ListItem>

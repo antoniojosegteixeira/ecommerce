@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
   },
   form: {
-    maxWidth: 800,
+    padding: "3rem 0",
+    maxWidth: 700,
     margin: "0 auto",
   },
   navbarButton: {

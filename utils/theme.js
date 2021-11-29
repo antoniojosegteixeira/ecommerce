@@ -37,7 +37,7 @@ const theme = responsiveFontSizes(
       },
       button: {
         fontFamily: "Staatliches",
-        color: darkGray,
+        fontSize: 20,
       },
     },
     palette: {

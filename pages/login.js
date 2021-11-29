@@ -54,7 +54,9 @@ const LoginScreen = () => {
   return (
     <Layout title="Login">
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
-        <Typography>Login</Typography>
+        <Typography component="h2" variant="h2" align="center">
+          Login
+        </Typography>
         <List>
           <ListItem>
             <Controller
@@ -116,7 +118,7 @@ const LoginScreen = () => {
           </ListItem>
           <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
-              Login
+              Sign In
             </Button>
           </ListItem>
           <ListItem>
