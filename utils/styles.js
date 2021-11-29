@@ -133,12 +133,19 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingBottom: "1rem",
   },
+  locationSection: {
+    backgroundColor: darkGray,
+    paddingTop: "1rem",
+    paddingBottom: "4rem",
+  },
   locationBox: {
     backgroundColor: darkBlue,
     borderRadius: "4px",
     maxWidth: "450px",
     boxShadow: "0 0.5rem 1rem rgb(0 0 0 / 15%)",
     padding: "1rem 0",
+    zIndex: 10,
+    transform: "translateY(40%)",
   },
   locationBoxList: {
     maxWidth: "350px",
@@ -148,6 +155,11 @@ const useStyles = makeStyles((theme) => ({
     "& i, p": {
       padding: "0 0.5rem",
     },
+  },
+  map: {
+    width: "100%",
+    height: "500px",
+    color: "white",
   },
 }));
 

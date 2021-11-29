@@ -17,6 +17,7 @@ import useStyles from "../utils/styles";
 import bikehero from "../public/images/bikehero.jpg";
 import { Button } from "@mui/material";
 import ReactCarousel from "../components/ReactCarousel";
+import GoogleMap from "../components/GoogleMap";
 
 export default function Home() {
   const router = useRouter();
@@ -33,7 +34,6 @@ export default function Home() {
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          padding: "0 1vw",
         }}
       >
         <List className={classes.heroTitleList}>
@@ -250,7 +250,7 @@ export default function Home() {
           </Grid>
         </Container>
       </Box>
-      <Box className={classes.ourServicesSection}>
+      <Box className={classes.locationSection}>
         <Container>
           <Grid container justifyContent="center">
             <Grid item xs={12} className={classes.locationBox}>
@@ -277,13 +277,14 @@ export default function Home() {
                   </Typography>
 
                   <Typography color="secondary">
-                    699-601 Santa Anita Ave, Burbank, CA 91501, EUA
+                    699-601 Santa Anita Ave, Burbank, CA 91501, USA
                   </Typography>
                 </ListItem>
               </List>
             </Grid>
           </Grid>
         </Container>
+        <GoogleMap />
       </Box>
     </Layout>
   );
