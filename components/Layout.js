@@ -134,7 +134,7 @@ const Layout = ({ children, title, description, dark }) => {
 
         <div
           className={classes.main}
-          style={dark ? { backgroundColor: "black" } : {}}
+          style={dark ? { backgroundColor: "#0e0e0e" } : {}}
         >
           {children}
         </div>

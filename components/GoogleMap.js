@@ -6,13 +6,18 @@ import useStyles from "../utils/styles";
 const GoogleMap = () => {
   const ref = useRef();
   const classes = useStyles();
-  const center = { lat: -34.397, lng: 150.644 };
-  const zoom = 4;
+  const center = { lat: 34.1832487, lng: -118.29945 };
+  const zoom = 16;
 
   useEffect(() => {
-    new window.google.maps.Map(ref.current, {
+    const map = new window.google.maps.Map(ref.current, {
       center,
       zoom,
+    });
+
+    new google.maps.Marker({
+      position: center,
+      map: map,
     });
   });
 

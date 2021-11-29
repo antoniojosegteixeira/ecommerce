@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
   },
   ourServicesSection: {
     backgroundColor: darkGray,
-    paddingTop: "2rem",
     paddingBottom: "4rem",
     [theme.breakpoints.up("md")]: {
       paddingLeft: "7rem",
@@ -135,8 +134,8 @@ const useStyles = makeStyles((theme) => ({
   },
   locationSection: {
     backgroundColor: darkGray,
-    paddingTop: "1rem",
     paddingBottom: "4rem",
+    transform: "translateY(-30px)",
   },
   locationBox: {
     backgroundColor: darkBlue,
@@ -158,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
   },
   map: {
     width: "100%",
-    height: "500px",
+    height: "600px",
     color: "white",
   },
 }));
