@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import { orange, grey } from "@material-ui/core/colors";
 
 const darkGray = "#0e0e0e";
+const darkBlue = "#0f1317";
 
 const useStyles = makeStyles((theme) => ({
   bw: {
@@ -131,6 +132,22 @@ const useStyles = makeStyles((theme) => ({
   centeredTitle: {
     width: "100%",
     paddingBottom: "1rem",
+  },
+  locationBox: {
+    backgroundColor: darkBlue,
+    borderRadius: "4px",
+    maxWidth: "450px",
+    boxShadow: "0 0.5rem 1rem rgb(0 0 0 / 15%)",
+    padding: "1rem 0",
+  },
+  locationBoxList: {
+    maxWidth: "350px",
+    justifyContent: "center",
+    margin: "0 auto",
+
+    "& i, p": {
+      padding: "0 0.5rem",
+    },
   },
 }));
 

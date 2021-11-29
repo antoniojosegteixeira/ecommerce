@@ -24,7 +24,7 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Layout>
+    <Layout dark>
       <Box
         className={classes.background}
         style={{
@@ -246,6 +246,41 @@ export default function Home() {
                   </ListItem>
                 </List>
               </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+      <Box className={classes.ourServicesSection}>
+        <Container>
+          <Grid container justifyContent="center">
+            <Grid item xs={12} className={classes.locationBox}>
+              <List>
+                <ListItem>
+                  <Typography
+                    component="h3"
+                    variant="h3"
+                    color="primary"
+                    align="center"
+                    style={{ width: "100%" }}
+                  >
+                    LOCATION
+                  </Typography>
+                </ListItem>
+                <ListItem className={classes.locationBoxList}>
+                  <Typography
+                    color="secondary"
+                    variant="h5"
+                    component="i"
+                    align="center"
+                  >
+                    <i className="fas fa-map-marker-alt"></i>
+                  </Typography>
+
+                  <Typography color="secondary">
+                    699-601 Santa Anita Ave, Burbank, CA 91501, EUA
+                  </Typography>
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
         </Container>

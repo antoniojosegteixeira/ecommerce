@@ -21,7 +21,7 @@ import theme from "../utils/theme";
 import Cookies from "js-cookie";
 import { Router, useRouter } from "next/router";
 
-const Layout = ({ children, title, description }) => {
+const Layout = ({ children, title, description, dark }) => {
   const classes = useStyles();
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -132,7 +132,12 @@ const Layout = ({ children, title, description }) => {
           </Toolbar>
         </AppBar>
 
-        <div className={classes.main}>{children}</div>
+        <div
+          className={classes.main}
+          style={dark ? { backgroundColor: "black" } : {}}
+        >
+          {children}
+        </div>
         <footer className={classes.footer}>
           <Typography variant="h1">Built by Antônio Teixeira</Typography>
         </footer>
