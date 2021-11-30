@@ -12,6 +12,7 @@ import {
   Button,
   Menu,
   MenuItem,
+  Box,
 } from "@material-ui/core";
 import { AppContext } from "../utils/AppContext";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -139,7 +140,26 @@ const Layout = ({ children, title, description, dark }) => {
           {children}
         </div>
         <footer className={classes.footer}>
-          <Typography variant="h1">Built by Antônio Teixeira</Typography>
+          <Typography variant="h1" component="h1" color="secondary">
+            BURBANK BIKE SHOP
+          </Typography>
+          <Box display="inline-flex">
+            <Link href="https://www.facebook.com/">
+              <i className="fab fa-facebook"></i>
+            </Link>
+            <Link href="https://www.twitter.com/">
+              <i className="fab fa-twitter"></i>
+            </Link>
+            <Link href="https://www.instagram.com/">
+              <i className="fab fa-instagram"></i>
+            </Link>
+            <Link href="https://www.youtube.com/">
+              <i className="fab fa-youtube"></i>
+            </Link>
+          </Box>
+          <Typography variant="subtitle1" component="h5" color="secondary">
+            Built by Antônio Teixeira
+          </Typography>
         </footer>
       </ThemeProvider>
     </div>

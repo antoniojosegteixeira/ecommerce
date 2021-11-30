@@ -33,8 +33,31 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "80vh",
   },
   footer: {
+    marginBottom: 0,
+    backgroundColor: darkGray,
+    overflow: "hidden",
+    padding: "2rem 1rem",
     textAlign: "center",
-    marginTop: 20,
+
+    [theme.breakpoints.up("md")]: {
+      textAlign: "start",
+    },
+
+    "& h1": {
+      lineHeight: "100%",
+    },
+
+    "& h5": {
+      marginTop: "5rem",
+    },
+
+    "& a": {
+      fontSize: "calc(1.3rem + 0.6vw)",
+      padding: "0.6rem 1rem",
+      "&:hover": {
+        color: "white",
+      },
+    },
   },
   section: {
     marginTop: "10px",
@@ -139,9 +162,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "1rem",
   },
   locationSection: {
+    marginTop: "-2.2rem",
     backgroundColor: darkGray,
-    paddingBottom: "4rem",
-    transform: "translateY(-30px)",
   },
   locationBox: {
     backgroundColor: darkBlue,
