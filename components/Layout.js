@@ -70,7 +70,7 @@ const Layout = ({ children, title, description, dark }) => {
           <Toolbar>
             <NextLink href="/" passHref>
               <Link>
-                <Typography component="span" variant="h5">
+                <Typography component="span" variant="h5" color="secondary">
                   Burbank Bike Shop
                 </Typography>
               </Link>
@@ -78,7 +78,7 @@ const Layout = ({ children, title, description, dark }) => {
             <div className={classes.grow}></div>
             <div className={classes.navLinks}>
               <NextLink href="/cart" passHref>
-                <Link>
+                <Link className={classes.navbarButton}>
                   {cart.cartItems.length > 0 ? (
                     <Badge
                       badgeContent={cart.cartItems.length}

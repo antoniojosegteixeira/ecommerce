@@ -41,7 +41,7 @@ const ProductScreen = (props) => {
     <div>
       <Layout title={product.name} description={product.description}>
         <div className={classes.section} name="me">
-          <NextLink href="/" passHref>
+          <NextLink href="/store" passHref>
             <Link>Back to products</Link>
           </NextLink>
         </div>

@@ -61,7 +61,7 @@ const CartScreen = () => {
         {cartItems?.length === 0 ? (
           <div>
             Your cart is empty <br />
-            <NextLink href="/" passHref>
+            <NextLink href="/store" passHref>
               <Link>Go Shopping</Link>
             </NextLink>
           </div>

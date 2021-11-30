@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
   navbarButton: {
     color: "white",
     textTransform: "initial",
+    fontFamily: "Staatliches",
+    padding: 0,
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
   section: {},
   error: {

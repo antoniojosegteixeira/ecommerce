@@ -28,7 +28,7 @@ const theme = responsiveFontSizes(
         color: darkGray,
       },
       subtitle1: {
-        fontSize: 20,
+        fontFamily: "Staatliches",
         fontWeight: 100,
       },
       body1: {
