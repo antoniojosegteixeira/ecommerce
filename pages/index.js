@@ -93,7 +93,11 @@ export default function Home() {
                 </Typography>
               </ListItem>
               <ListItem>
-                <Button className={classes.mainButton}>KNOW MORE</Button>
+                <NextLink href="/product/altitude" passHref>
+                  <Button className={classes.mainButton} as="a">
+                    KNOW MORE
+                  </Button>
+                </NextLink>
               </ListItem>
             </List>
           </Grid>

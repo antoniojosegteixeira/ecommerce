@@ -81,6 +81,19 @@ const data = {
       description:
         "This 29er features a lightweight, stiff and super-strong ALUXX SL frameset with our latest Maestro rear suspension. The components have been hand-picked to excel on technical descents. The frameset is engineered with progressive geometry including shorter chainstays, a longer toptube, and headtube/seattube angles that put you in the perfect position to slay singletrack.",
     },
+    {
+      name: "ALTITUDE",
+      slug: "altitude",
+      category: "Mountain Bikes",
+      image: "/images/bikes/product-5.jpg",
+      price: 4700,
+      brand: "Rocky Mountain",
+      rating: 4.8,
+      numReviews: 6,
+      countInStock: 8,
+      description:
+        "Race circuits or Sunday Shreds, the Altitude has you covered. Purpose-built and race-proven, it’s the ultimate enduro weapon for demolishing steep trails and making every session faster. Sure, total enduro capability translates nicely to podiums. But it also means bigger and more committing weekend rides for the rest of us. With so much capability in your corner, it makes you want to push limits, climb faster, and get better.",
+    },
   ],
 };
 
