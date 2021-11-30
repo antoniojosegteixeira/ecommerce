@@ -33,7 +33,6 @@ const theme = responsiveFontSizes(
       },
       body1: {
         fontSize: "1rem",
-        fontWeight: 100,
       },
       button: {
         fontFamily: "Staatliches",

@@ -16,6 +16,8 @@ import {
   Typography,
   Card,
   Button,
+  Box,
+  Container,
 } from "@material-ui/core";
 import Image from "next/image";
 
@@ -40,75 +42,86 @@ const ProductScreen = (props) => {
   return (
     <div>
       <Layout title={product.name} description={product.description}>
-        <div className={classes.section} name="me">
-          <NextLink href="/store" passHref>
-            <Link>Back to products</Link>
-          </NextLink>
-        </div>
-        <Grid container spacing={3}>
-          <Grid item md={6} xs={12}>
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={720}
-              height={400}
-              layout="responsive"
-            ></Image>
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <List>
-              <ListItem>
-                <Typography component="h1">{product.name}</Typography>
-              </ListItem>
-              <ListItem>Category: {product.category}</ListItem>
-              <ListItem>Brand: {product.brand}</ListItem>
-              <ListItem>
-                Rating: {product.rating} stars ({product.numReviews}) reviews
-              </ListItem>
-              <ListItem>
-                <Typography>Description: {product.description}</Typography>
-              </ListItem>
-            </List>
-          </Grid>
-          <Grid item md={3} sx={12}>
-            <Card>
+        <Container>
+          <Box name="me" className={classes.backTo}>
+            <NextLink href="/store" passHref>
+              <Link color="default">Back to products</Link>
+            </NextLink>
+          </Box>
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={720}
+                height={400}
+                layout="responsive"
+              ></Image>
+            </Grid>
+            <Grid item md={3} xs={12}>
               <List>
                 <ListItem>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography>Price</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography>R${product.price}</Typography>
-                    </Grid>
-                  </Grid>
+                  <Typography component="h1" variant="h3">
+                    {product.name}
+                  </Typography>
                 </ListItem>
                 <ListItem>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography>Status</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography>
-                        {product.countInStock ? "In Stock" : "Out of stock"}
-                      </Typography>
-                    </Grid>
-                  </Grid>
+                  <Typography>Category: {product.category}</Typography>
                 </ListItem>
                 <ListItem>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={addToCartHandler}
-                  >
-                    Add to cart
-                  </Button>
+                  <Typography>Brand: {product.brand}</Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>
+                    Rating: {product.rating} stars ({product.numReviews})
+                    reviews
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Typography>Description: {product.description}</Typography>
                 </ListItem>
               </List>
-            </Card>
+            </Grid>
+            <Grid item md={3} sx={12}>
+              <Card>
+                <List>
+                  <ListItem>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Typography>Price</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography>R${product.price}</Typography>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                  <ListItem>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Typography>Status</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography>
+                          {product.countInStock ? "In Stock" : "Out of stock"}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </ListItem>
+                  <ListItem>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      onClick={addToCartHandler}
+                    >
+                      Add to cart
+                    </Button>
+                  </ListItem>
+                </List>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </Layout>
     </div>
   );

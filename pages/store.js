@@ -43,7 +43,7 @@ export default function Store(props) {
 
   return (
     <Layout>
-      <Container>
+      <Container className={classes.pageContainer}>
         <Typography
           component="h1"
           variant="h3"

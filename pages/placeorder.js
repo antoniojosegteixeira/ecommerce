@@ -160,8 +160,8 @@ const PlaceOrderScreen = () => {
                                     <Image
                                       src={item.image}
                                       alt={item.name}
-                                      width={50}
-                                      height={50}
+                                      width={60}
+                                      height={40}
                                     ></Image>
                                   </Link>
                                 </NextLink>
@@ -173,7 +173,9 @@ const PlaceOrderScreen = () => {
                                   passHref
                                 >
                                   <Link>
-                                    <Typography>{item.name}</Typography>
+                                    <Typography className={classes.bold}>
+                                      {item.name}
+                                    </Typography>
                                   </Link>
                                 </NextLink>
                               </TableCell>

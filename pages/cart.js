@@ -23,6 +23,7 @@ import {
   NoSsr,
 } from "@material-ui/core";
 import axios from "axios";
+import useStyles from "../utils/styles";
 import { useRouter } from "next/router";
 
 const CartScreen = () => {
@@ -30,6 +31,7 @@ const CartScreen = () => {
   const { state, dispatch } = useContext(AppContext);
   const { cartItems } = state.cart;
   const { userInfo } = state;
+  const classes = useStyles();
 
   const updateCartHandler = async (item, quantity) => {
     const data = await axios.get(`/api/products/${item._id}`);
@@ -54,7 +56,7 @@ const CartScreen = () => {
 
   return (
     <Layout title="Shopping Cart">
-      <Container>
+      <Container className={classes.pageContainer}>
         <Typography component="h1" variant="h3">
           Shopping Cart
         </Typography>
@@ -88,8 +90,8 @@ const CartScreen = () => {
                               <Image
                                 src={item.image}
                                 alt={item.name}
-                                width={50}
-                                height={50}
+                                width={60}
+                                height={40}
                               ></Image>
                             </Link>
                           </NextLink>
@@ -98,7 +100,9 @@ const CartScreen = () => {
                         <TableCell>
                           <NextLink href={`/product/${item.slug}`} passHref>
                             <Link>
-                              <Typography>{item.name}</Typography>
+                              <Typography className={classes.bold}>
+                                {item.name}
+                              </Typography>
                             </Link>
                           </NextLink>
                         </TableCell>

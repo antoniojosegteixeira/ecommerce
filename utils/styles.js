@@ -26,11 +26,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "1.5rem",
   },
+  bold: {
+    fontWeight: "bold",
+  },
   grow: {
     flexGrow: 1,
   },
   main: {
-    minHeight: "80vh",
+    minHeight: "84vh",
   },
   footer: {
     marginBottom: 0,
@@ -59,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  section: {
-    marginTop: "10px",
+  backTo: {
+    margin: "1rem",
   },
   form: {
     padding: "3rem 0",
@@ -76,7 +79,9 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
   },
-  section: {},
+  pageContainer: {
+    paddingBottom: "2rem",
+  },
   error: {
     color: "#f04040",
   },
