@@ -143,8 +143,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   topProductCard: {
-    backgroundColor: "#b4b4b4",
-    padding: "1rem",
+    backgroundColor: "white",
+    paddingTop: "1.3rem",
+    paddingBottom: "0.8rem",
+    cursor: "pointer",
     borderRadius: "0.3rem",
   },
   ourServicesSection: {
