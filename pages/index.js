@@ -48,7 +48,7 @@ export default function Home() {
               YOUR ADVENTURE <br /> STARTS NOW
             </Typography>
           </ListItem>
-          <ListItem textAlign="center">
+          <ListItem align="center">
             <NextLink href="/store" passHref>
               <Button
                 variant="contained"
