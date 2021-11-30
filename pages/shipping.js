@@ -86,7 +86,9 @@ const ShippingScreen = () => {
   return (
     <Layout title="Shipping">
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
-        <Typography>Shipping</Typography>
+        <Typography component="h1" variant="h3" align="center">
+          Shipping
+        </Typography>
 
         <CheckoutWizard activeStep={1} />
 

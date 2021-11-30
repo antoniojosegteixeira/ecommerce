@@ -50,7 +50,9 @@ const PaymentScreen = () => {
     <Layout title="Payment">
       <CheckoutWizard activeStep={2} />
       <form className={classes.form} onSubmit={submitHandler}>
-        <Typography>Payment Method</Typography>
+        <Typography component="h1" variant="h3" align="center">
+          Payment Method
+        </Typography>
         <List>
           <ListItem>
             <FormControl component="fieldset">
@@ -58,21 +60,22 @@ const PaymentScreen = () => {
                 name="paymentMethod"
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
+                color="secondary"
               >
                 <FormControlLabel
                   label="Paypal"
                   value="Paypal"
-                  control={<Radio />}
+                  control={<Radio color="info" />}
                 ></FormControlLabel>
                 <FormControlLabel
                   label="Stripe"
                   value="Stripe"
-                  control={<Radio />}
+                  control={<Radio color="info" />}
                 ></FormControlLabel>
                 <FormControlLabel
                   label="Cash"
                   value="Cash"
-                  control={<Radio />}
+                  control={<Radio color="info" />}
                 ></FormControlLabel>
               </RadioGroup>
             </FormControl>
