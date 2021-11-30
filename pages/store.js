@@ -11,18 +11,23 @@ import {
   CardMedia,
   CardContent,
   Grid,
+  List,
+  ListItem,
   Button,
   Typography,
+  Container,
 } from "@material-ui/core";
 import NextLink from "next/link";
 import data from "../utils/data";
 import db from "../utils/db";
+import useStyles from "../utils/styles";
 import Product from "../models/Product";
 
 export default function Store(props) {
   const { products } = props;
   const router = useRouter();
   const { state, dispatch } = useContext(AppContext);
+  const classes = useStyles();
 
   const addToCartHandler = async (product) => {
     const { data } = await axios.get(`/api/products/${product._id}`);
@@ -38,41 +43,62 @@ export default function Store(props) {
 
   return (
     <Layout>
-      <h1>Products</h1>
-      <Grid container spacing={3}>
-        {products.map((product) => {
-          console.log(product.name);
+      <Container>
+        <Typography
+          component="h1"
+          variant="h3"
+          align="center"
+          style={{ padding: "1.2rem 0 2rem 0" }}
+        >
+          Products
+        </Typography>
+        <Grid container spacing={3}>
+          {products.map((product) => {
+            console.log(product.name);
 
-          return (
-            <Grid item md={4} key={product.name}>
-              <Card>
-                <NextLink href={`/product/${product.slug}`} passHref>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      image={product.image}
-                      title={product.name}
-                    />
-                    <CardContent>
-                      <Typography>{product.name}</Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </NextLink>
-                <CardActions>
-                  <Typography>R${product.price}</Typography>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => addToCartHandler(product)}
-                  >
-                    Add to cart
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
+            return (
+              <Grid item md={4} key={product.name}>
+                <Card className={classes.boxShadow}>
+                  <NextLink href={`/product/${product.slug}`} passHref>
+                    <CardActionArea style={{ padding: "2rem 2rem 0 2rem" }}>
+                      <CardMedia
+                        component="img"
+                        image={product.image}
+                        title={product.name}
+                      />
+                      <CardContent style={{ paddingBottom: 0 }}>
+                        <Typography variant="h5" align="center">
+                          {product.name}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </NextLink>
+                  <CardActions>
+                    <List style={{ width: "100%" }} disablePadding>
+                      <Typography variant="h5" align="center">
+                        ${product.price}
+                      </Typography>
+
+                      <ListItem>
+                        <Button
+                          variant="contained"
+                          type="submit"
+                          fullWidth
+                          color="primary"
+                          onClick={() => addToCartHandler(product)}
+                          className={classes.smallButton}
+                        >
+                          Add to cart
+                        </Button>
+                      </ListItem>
+                    </List>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
     </Layout>
   );
 }

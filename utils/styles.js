@@ -156,10 +156,17 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 0.5rem",
     },
   },
+  boxShadow: {
+    boxShadow: "0 0.5rem 1rem rgb(0 0 0 / 15%)",
+  },
   map: {
     width: "100%",
     height: "600px",
     color: "white",
+  },
+  smallButton: {
+    fontSize: 17,
+    padding: "0.6rem 2rem",
   },
 }));
 
