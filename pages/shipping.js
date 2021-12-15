@@ -221,7 +221,7 @@ const ShippingScreen = () => {
                   error={Boolean(errors.postalCode)}
                   helperText={
                     errors.postalCode
-                      ? errors.postalCode.type === "pattern"
+                      ? errors.postalCode.type === "minLength"
                         ? "Enter a valid postal code"
                         : "Postal code is required"
                       : ""
@@ -234,7 +234,7 @@ const ShippingScreen = () => {
               defaultValue=""
               rules={{
                 required: true,
-                pattern: /^[0-9]{8}$/,
+                minLength: 4,
               }}
             />
           </ListItem>

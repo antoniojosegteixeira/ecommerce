@@ -53,7 +53,11 @@ const LoginScreen = () => {
 
   return (
     <Layout title="Login">
-      <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+      <form
+        className={classes.form}
+        onSubmit={handleSubmit(submitHandler)}
+        style={{ paddingTop: "2rem" }}
+      >
         <Typography component="h2" variant="h2" align="center">
           Login
         </Typography>

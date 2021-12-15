@@ -16,6 +16,7 @@ import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
+import { getError } from "../utils/error";
 
 const RegisterScreen = () => {
   const classes = useStyles();
@@ -47,24 +48,26 @@ const RegisterScreen = () => {
         email,
         password,
       });
-      console.log(data);
 
       dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
       router.push("/");
 
-      enqueueSnackbar("Register Successful", {
+      enqueueSnackbar("Registered successfully", {
         variant: "success",
       });
     } catch (err) {
-      enqueueSnackbar(err.response?.data.message, { variant: "error" });
-      console.log(err);
+      enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
 
   return (
     <Layout title="Register">
-      <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+      <form
+        className={classes.form}
+        onSubmit={handleSubmit(submitHandler)}
+        style={{ paddingTop: "2rem" }}
+      >
         <Typography component="h2" variant="h2" align="center">
           Register
         </Typography>
@@ -93,7 +96,6 @@ const RegisterScreen = () => {
               control={control}
               defaultValue=""
               rules={{
-                required: true,
                 minLength: 2,
               }}
             />
@@ -122,7 +124,6 @@ const RegisterScreen = () => {
               control={control}
               defaultValue=""
               rules={{
-                required: true,
                 pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
               }}
             />
@@ -139,9 +140,7 @@ const RegisterScreen = () => {
                   error={Boolean(errors.password)}
                   helperText={
                     errors.password
-                      ? errors.password.type === "minLength"
-                        ? "Password should have at least 6 characters"
-                        : "Password is required"
+                      ? "Password must have at least 6 characters"
                       : ""
                   }
                   {...field}
@@ -151,8 +150,10 @@ const RegisterScreen = () => {
               control={control}
               defaultValue=""
               rules={{
-                required: true,
-                minLength: 6,
+                validate: (value) =>
+                  value === "" ||
+                  value.length > 5 ||
+                  "Password must have at least 6 characters",
               }}
             />
           </ListItem>
@@ -168,9 +169,7 @@ const RegisterScreen = () => {
                   error={Boolean(errors.confirmPassword)}
                   helperText={
                     errors.confirmPassword
-                      ? errors.confirmPassword.type === "minLength"
-                        ? "Password confirmation should have at least 6 characters"
-                        : "Password confirmation is required"
+                      ? "Password confirmation must have at least 6 characters"
                       : ""
                   }
                   {...field}
@@ -180,8 +179,10 @@ const RegisterScreen = () => {
               control={control}
               defaultValue=""
               rules={{
-                required: true,
-                minLength: 6,
+                validate: (value) =>
+                  value === "" ||
+                  value.length > 5 ||
+                  "Password confirmation must have at least 6 characters",
               }}
             />
           </ListItem>

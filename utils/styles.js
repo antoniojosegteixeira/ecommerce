@@ -66,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
   form: {
-    padding: "3rem 0",
+    padding: "1rem 0",
     maxWidth: 700,
+    width: "100%",
     margin: "0 auto",
   },
   navbarButton: {
@@ -201,6 +202,9 @@ const useStyles = makeStyles((theme) => ({
   smallButton: {
     fontSize: 17,
     padding: "0.6rem 2rem",
+  },
+  profileSection: {
+    width: "100%",
   },
 }));
 

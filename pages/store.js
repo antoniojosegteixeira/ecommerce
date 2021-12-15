@@ -54,8 +54,6 @@ export default function Store(props) {
         </Typography>
         <Grid container spacing={3}>
           {products.map((product) => {
-            console.log(product.name);
-
             return (
               <Grid item md={4} key={product.name}>
                 <Card className={classes.boxShadow}>

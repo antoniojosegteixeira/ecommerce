@@ -91,7 +91,7 @@ const PlaceOrderScreen = () => {
   return (
     <NoSsr>
       <Layout title="Place Order">
-        <Container>
+        <Container style={{ paddingBottom: "3rem" }}>
           <CheckoutWizard activeStep={3} />
           <Typography component="h1" variant="h3">
             Place Order
