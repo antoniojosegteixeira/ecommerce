@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   navLinks: {
+    display: "flex",
+    flexDirection: "row",
     "& a": {
       padding: "6px",
     },

@@ -79,16 +79,20 @@ const Layout = ({ children, title, description, dark }) => {
             <div className={classes.grow}></div>
             <div className={classes.navLinks}>
               <NextLink href="/cart" passHref>
-                <Link className={classes.navbarButton}>
+                <Link>
                   {cart.cartItems.length > 0 ? (
                     <Badge
                       badgeContent={cart.cartItems.length}
                       color="secondary"
                     >
-                      Cart
+                      <Typography className={classes.navbarButton}>
+                        Cart
+                      </Typography>
                     </Badge>
                   ) : (
-                    "Cart"
+                    <Typography className={classes.navbarButton}>
+                      Cart
+                    </Typography>
                   )}
                 </Link>
               </NextLink>
@@ -100,14 +104,16 @@ const Layout = ({ children, title, description, dark }) => {
                     onClick={loginClickHandler}
                     className={classes.navbarButton}
                   >
-                    {userInfo.name}
+                    <Typography className={classes.navbarButton}>
+                      {userInfo.name}
+                    </Typography>
                   </Button>
                   <Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
                     keepMounted
                     open={Boolean(anchorEl)}
-                    onClose={loginMenuCloseHandler}
+                    onClose={() => setAnchorEl(null)}
                   >
                     <MenuItem
                       onClick={(e) => loginMenuCloseHandler(e, "/profile")}
@@ -126,7 +132,11 @@ const Layout = ({ children, title, description, dark }) => {
                 </>
               ) : (
                 <NextLink href="/login" passHref>
-                  <Link>Login</Link>
+                  <Link>
+                    <Typography className={classes.navbarButton}>
+                      Login
+                    </Typography>
+                  </Link>
                 </NextLink>
               )}
             </div>
