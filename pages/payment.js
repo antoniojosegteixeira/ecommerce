@@ -65,7 +65,7 @@ const PaymentScreen = () => {
                 <FormControlLabel
                   label="Paypal"
                   value="Paypal"
-                  control={<Radio color="info" />}
+                  control={<Radio color="primary" />}
                 ></FormControlLabel>
               </RadioGroup>
             </FormControl>
