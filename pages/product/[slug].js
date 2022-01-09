@@ -45,7 +45,7 @@ const ProductScreen = (props) => {
         <Container className={classes.pageContainer}>
           <Box name="me" className={classes.backTo}>
             <NextLink href="/store" passHref>
-              <Link color="default">Back to products</Link>
+              <Link>Back to products</Link>
             </NextLink>
           </Box>
           <Grid container spacing={3}>
