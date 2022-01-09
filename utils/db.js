@@ -9,7 +9,9 @@ const connect = async () => {
   }
 
   if (mongoose.connections.length > 0) {
+    console.log(mongoose.connections[0]);
     connection.isConnected = mongoose.connections[0].readyState;
+
     if (connection.isConnected === 1) {
       console.log("Use previous connection");
       return;
@@ -25,7 +27,9 @@ const connect = async () => {
       })
       .then(() => {
         console.log("New connection");
-        connection.isConnected = db.connections[0].readyState;
+        if (db.connections[0].readyState !== undefined) {
+          connection.isConnected = db.connections[0].readyState;
+        }
       });
   } catch (err) {
     console.log(err.message);
