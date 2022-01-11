@@ -102,7 +102,7 @@ export default function Store(props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await db.connect();
   const products = await Product.find().lean();
   await db.disconnect();
