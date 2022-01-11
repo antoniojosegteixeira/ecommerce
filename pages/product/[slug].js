@@ -82,7 +82,7 @@ const ProductScreen = (props) => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item md={3} sx={12}>
+            <Grid item md={3} xs={12}>
               <Card>
                 <List>
                   <ListItem>
