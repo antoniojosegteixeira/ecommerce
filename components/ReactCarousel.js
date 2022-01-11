@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   NoSsr,
   Grid,
@@ -8,19 +8,22 @@ import {
   ListItem,
   Typography,
 } from "@material-ui/core";
-import useStyles from "../utils/styles";
-import db from "../utils/db";
+import { AppContext } from "../utils/AppContext";
 import axios from "axios";
 import NextLink from "next/link";
+import useStyles from "../utils/styles";
 
 export default function ReactCarousel() {
   const classes = useStyles();
-  const [topProducts, setTopProducts] = useState([]);
+  const { state, dispatch } = useContext(AppContext);
+  const { topProducts } = state;
 
   useEffect(() => {
     const getTopProducts = async () => {
       const { data } = await axios.get(`/api/products/top-products`);
-      setTopProducts(data);
+      if (data) {
+        dispatch({ type: "ADD_TOP_PRODUCTS", payload: data });
+      }
     };
     getTopProducts();
   }, []);

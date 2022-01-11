@@ -19,6 +19,7 @@ const initialState = {
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
     : null,
+  topProducts: [],
 };
 
 // Reducers
@@ -81,6 +82,9 @@ const reducer = (state, action) => {
         ...state,
         cart: { cartItems: [] },
       };
+
+    case "ADD_TOP_PRODUCTS":
+      return { ...state, topProducts: action.payload };
 
     default:
       return state;
