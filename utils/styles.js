@@ -178,7 +178,7 @@ const useStyles = makeStyles((theme) => ({
   locationBox: {
     backgroundColor: darkBlue,
     borderRadius: "4px",
-    maxWidth: "450px",
+    maxWidth: "410px",
     boxShadow: "0 0.5rem 1rem rgb(0 0 0 / 15%)",
     padding: "1rem 0",
     zIndex: 10,
