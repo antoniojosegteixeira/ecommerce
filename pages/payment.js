@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
-import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import Layout from "../components/Layout";
 import CheckoutWizard from "../components/CheckoutWizard";
@@ -16,6 +15,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { useSnackbar } from "notistack";
+import useStyles from "../utils/styles";
 
 const PaymentScreen = () => {
   const classes = useStyles();

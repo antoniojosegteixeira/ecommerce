@@ -26,9 +26,9 @@ import {
   Container,
 } from "@material-ui/core";
 import NextLink from "next/link";
-import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
+import useStyles from "../utils/styles";
 
 const PlaceOrderScreen = () => {
   const router = useRouter();

@@ -15,10 +15,10 @@ import {
 } from "@material-ui/core";
 import NextLink from "next/link";
 import Image from "next/image";
-import useStyles from "../utils/styles";
 import bikehero from "../public/images/bikehero.jpg";
 import ReactCarousel from "../components/ReactCarousel";
 import GoogleMap from "../components/GoogleMap";
+import useStyles from "../utils/styles";
 
 export default function Home() {
   const router = useRouter();

@@ -20,8 +20,8 @@ import {
 import NextLink from "next/link";
 import data from "../utils/data";
 import db from "../utils/db";
-import useStyles from "../utils/styles";
 import Product from "../models/Product";
+import useStyles from "../utils/styles";
 
 export default function Store(props) {
   const { products } = props;

@@ -15,9 +15,9 @@ import {
   StepLabel,
 } from "@material-ui/core";
 import NextLink from "next/link";
-import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
+import useStyles from "../utils/styles";
 
 const ShippingScreen = () => {
   const router = useRouter();

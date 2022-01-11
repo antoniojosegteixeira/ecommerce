@@ -12,11 +12,11 @@ import {
   Link,
 } from "@material-ui/core";
 import NextLink from "next/link";
-import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { getError } from "../utils/error";
+import useStyles from "../utils/styles";
 
 const RegisterScreen = () => {
   const classes = useStyles();

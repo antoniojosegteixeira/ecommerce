@@ -1,5 +1,4 @@
 import React from "react";
-import useStyles from "../../utils/styles";
 import db from "../../utils/db";
 import axios from "axios";
 import Product from "../../models/Product";
@@ -20,6 +19,7 @@ import {
   Container,
 } from "@material-ui/core";
 import Image from "next/image";
+import useStyles from "../../utils/styles";
 
 const ProductScreen = (props) => {
   const router = useRouter();

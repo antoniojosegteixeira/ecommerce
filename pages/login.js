@@ -12,10 +12,10 @@ import {
   Link,
 } from "@material-ui/core";
 import NextLink from "next/link";
-import useStyles from "../utils/styles";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
+import useStyles from "../utils/styles";
 
 const LoginScreen = () => {
   const classes = useStyles();

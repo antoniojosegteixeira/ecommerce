@@ -25,9 +25,9 @@ import {
   ListItemText,
   Button,
 } from "@material-ui/core";
-import useStyles from "../utils/styles";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
+import useStyles from "../utils/styles";
 
 export default function ProfileScreen() {
   const { state, dispatch } = useContext(AppContext);

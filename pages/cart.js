@@ -23,8 +23,8 @@ import {
   NoSsr,
 } from "@material-ui/core";
 import axios from "axios";
-import useStyles from "../utils/styles";
 import { useRouter } from "next/router";
+import useStyles from "../utils/styles";
 
 const CartScreen = () => {
   const router = useRouter();
