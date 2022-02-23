@@ -74,15 +74,8 @@ const LoginScreen = () => {
                   fullWidth
                   id="email"
                   label="Email"
-                  inputProps={{ type: "email" }}
                   error={Boolean(errors.email)}
-                  helperText={
-                    errors.email
-                      ? errors.email.type === "pattern"
-                        ? "Email is not valid"
-                        : "Email is required"
-                      : ""
-                  }
+                  helperText={errors.email?.message}
                   {...field}
                 />
               )}
@@ -105,13 +98,7 @@ const LoginScreen = () => {
                   label="Password"
                   inputProps={{ type: "password" }}
                   error={Boolean(errors.password)}
-                  helperText={
-                    errors.password
-                      ? errors.password.type === "minLength"
-                        ? "Password should have at least 6 characters"
-                        : "Password is required"
-                      : ""
-                  }
+                  helperText={errors.password?.message}
                   {...field}
                 />
               )}
