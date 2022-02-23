@@ -1,7 +1,25 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
+import NextLink from "next/link";
+import Cookies from "js-cookie";
+
+// React hook form and yup validator
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import loginSchema from "../validation/loginValidation";
+
+// Login function
 import loginRequest from "../http/loginRequest";
+
+// Notification library
+import { useSnackbar } from "notistack";
+
+// Style
+import useStyles from "../utils/styles";
+
+//Components
+import Layout from "../components/Layout";
 import {
   List,
   ListItem,
@@ -10,13 +28,6 @@ import {
   Button,
   Link,
 } from "@material-ui/core";
-import NextLink from "next/link";
-import Cookies from "js-cookie";
-import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import useStyles from "../utils/styles";
-
-import Layout from "../components/Layout";
 
 const LoginScreen = () => {
   const classes = useStyles();
@@ -26,8 +37,10 @@ const LoginScreen = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+  const { enqueueSnackbar } = useSnackbar();
 
   const submitHandler = async (userData) => {
     loginRequest(userData)
@@ -36,13 +49,11 @@ const LoginScreen = () => {
         Cookies.set("userInfo", JSON.stringify(res));
       })
       .catch((err) => {
-        enqueueSnackbar(err.message ? err.message : "Error", {
+        enqueueSnackbar(err.response?.data ? err.response.data : "Error", {
           variant: "error",
         });
       });
   };
-
-  console.log(Cookies.get("userInfo"));
 
   return (
     <Layout title="Login">
