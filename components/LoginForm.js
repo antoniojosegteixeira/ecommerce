@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
-import loginRequest from "../http/loginRequest";
+import axios from "axios";
+import Layout from "../components/Layout";
 import {
   List,
   ListItem,
@@ -16,12 +17,11 @@ import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import useStyles from "../utils/styles";
 
-import Layout from "../components/Layout";
-
 const LoginScreen = () => {
   const classes = useStyles();
-  const { state, dispatch } = useContext(AppContext);
   const router = useRouter();
+  const { state, dispatch } = useContext(AppContext);
+  const { userInfo } = state;
   const {
     handleSubmit,
     control,
@@ -29,18 +29,26 @@ const LoginScreen = () => {
   } = useForm();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const submitHandler = async (userData) => {
-    loginRequest(userData)
-      .then((res) => {
-        //dispatch({ type: "USER_LOGIN", payload: res });
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        enqueueSnackbar(err.message ? err.message : "Error", {
-          variant: "error",
-        });
+  useEffect(() => {
+    if (userInfo) {
+      router.push("/");
+    }
+  }, []);
+
+  const submitHandler = async ({ email, password }) => {
+    closeSnackbar();
+    try {
+      const { data } = await axios.post("/api/login", {
+        email,
+        password,
       });
+      dispatch({ type: "USER_LOGIN", payload: data });
+      Cookies.set("userInfo", JSON.stringify(data));
+      router.push("/");
+    } catch (err) {
+      console.log("erro", err);
+      enqueueSnackbar(err.response?.data.message, { variant: "error" });
+    }
   };
 
   return (
