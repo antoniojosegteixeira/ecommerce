@@ -41,8 +41,9 @@ const RegisterScreen = () => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
+  /// Submit form data to backend
   const submitHandler = async ({ name, email, password }) => {
     registerRequest({ name, email, password })
       .then((res) => {
