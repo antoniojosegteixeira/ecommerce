@@ -1,7 +1,25 @@
 import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
+
+import NextLink from "next/link";
+import Cookies from "js-cookie";
+
+// React hook form and yup validator
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import registerSchema from "../validation/registerValidation";
+
+// Register function
 import registerRequest from "../http/registerRequest";
+
+// Notification library
+import { useSnackbar } from "notistack";
+
+// Style
+import useStyles from "../utils/styles";
+
+// Components
 import Layout from "../components/Layout";
 import {
   List,
@@ -11,12 +29,6 @@ import {
   Button,
   Link,
 } from "@material-ui/core";
-import NextLink from "next/link";
-import Cookies from "js-cookie";
-import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import { getError } from "../utils/error";
-import useStyles from "../utils/styles";
 
 const RegisterScreen = () => {
   const classes = useStyles();
@@ -26,7 +38,9 @@ const RegisterScreen = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const submitHandler = async ({ name, email, password }) => {
@@ -64,22 +78,13 @@ const RegisterScreen = () => {
                   label="Name"
                   inputProps={{ type: "text" }}
                   error={Boolean(errors.name)}
-                  helperText={
-                    errors.name
-                      ? errors.name.type === "minLength"
-                        ? "Name should have at least 2 characters"
-                        : "Name is required"
-                      : ""
-                  }
+                  helperText={errors.name?.message}
                   {...field}
                 />
               )}
               name="name"
               control={control}
               defaultValue=""
-              rules={{
-                minLength: 2,
-              }}
             />
           </ListItem>
           <ListItem>
@@ -92,22 +97,13 @@ const RegisterScreen = () => {
                   label="Email"
                   inputProps={{ type: "email" }}
                   error={Boolean(errors.email)}
-                  helperText={
-                    errors.email
-                      ? errors.email.type === "pattern"
-                        ? "Email is not valid"
-                        : "Email is required"
-                      : ""
-                  }
+                  helperText={errors.email?.message}
                   {...field}
                 />
               )}
               name="email"
               control={control}
               defaultValue=""
-              rules={{
-                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-              }}
             />
           </ListItem>
           <ListItem>
@@ -120,23 +116,13 @@ const RegisterScreen = () => {
                   label="Password"
                   inputProps={{ type: "password" }}
                   error={Boolean(errors.password)}
-                  helperText={
-                    errors.password
-                      ? "Password must have at least 6 characters"
-                      : ""
-                  }
+                  helperText={errors.password?.message}
                   {...field}
                 />
               )}
               name="password"
               control={control}
               defaultValue=""
-              rules={{
-                validate: (value) =>
-                  value === "" ||
-                  value.length > 5 ||
-                  "Password must have at least 6 characters",
-              }}
             />
           </ListItem>
           <ListItem>
@@ -149,23 +135,13 @@ const RegisterScreen = () => {
                   label="Confirm Password"
                   inputProps={{ type: "password" }}
                   error={Boolean(errors.confirmPassword)}
-                  helperText={
-                    errors.confirmPassword
-                      ? "Password confirmation must have at least 6 characters"
-                      : ""
-                  }
+                  helperText={errors.confirmPassword?.message}
                   {...field}
                 />
               )}
               name="confirmPassword"
               control={control}
               defaultValue=""
-              rules={{
-                validate: (value) =>
-                  value === "" ||
-                  value.length > 5 ||
-                  "Password confirmation must have at least 6 characters",
-              }}
             />
           </ListItem>
           <ListItem>

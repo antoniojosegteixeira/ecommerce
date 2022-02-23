@@ -1,11 +1,10 @@
 import * as yup from "yup";
 
 const registerSchema = yup.object().shape({
-  name: yup.string().required("Enter a name"),
+  name: yup.string().min(2, "Name too short").required("Enter a name"),
   email: yup
     .string()
     .email("Enter a valid email address")
-    .min(2, "Name too short")
     .required("Enter an email"),
   password: yup
     .string()
