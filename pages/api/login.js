@@ -7,15 +7,20 @@ import { signToken } from "../../utils/auth";
 const handler = nc();
 
 handler.post(async (req, res) => {
+  let body = req.body;
+
+  // Parsing body data
+  if (typeof req.body === "string") {
+    body = JSON.parse(req.body);
+  }
+
   await db.connect();
-  const user = await User.findOne({ email: req.body.email }).select(
-    "+password"
-  );
+  const user = await User.findOne({ email: body.email }).select("+password");
   await db.disconnect();
 
   if (user) {
     const passwordsMatch = await bcrypt.compareSync(
-      req.body.password,
+      body.password,
       user.password
     );
 
