@@ -36,10 +36,10 @@ handler.post(async (req, res) => {
         isAdmin: user.isAdmin,
       });
     } else {
-      res.status(403).send({ message: "Invalid password" });
+      res.status(403).send("Invalid password");
     }
   } else {
-    res.status(401).send({ message: "Invalid user" });
+    res.status(401).send("Invalid user");
   }
 });
 
