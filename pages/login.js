@@ -32,11 +32,9 @@ const LoginScreen = () => {
   const submitHandler = async (userData) => {
     loginRequest(userData)
       .then((res) => {
-        //dispatch({ type: "USER_LOGIN", payload: res });
-        console.log(res);
+        dispatch({ type: "USER_LOGIN", payload: res });
       })
       .catch((err) => {
-        console.log(err);
         enqueueSnackbar(err.message ? err.message : "Error", {
           variant: "error",
         });
