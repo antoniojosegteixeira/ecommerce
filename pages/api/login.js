@@ -9,11 +9,6 @@ const handler = nc();
 handler.post(async (req, res) => {
   let body = req.body;
 
-  // Parsing body data
-  if (typeof req.body === "string") {
-    body = JSON.parse(req.body);
-  }
-
   await db.connect();
   const user = await User.findOne({ email: body.email }).select("+password");
   await db.disconnect();
