@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
-import axios from "axios";
+import registerRequest from "../http/registerRequest";
 import Layout from "../components/Layout";
 import {
   List,
@@ -22,7 +22,6 @@ const RegisterScreen = () => {
   const classes = useStyles();
   const router = useRouter();
   const { state, dispatch } = useContext(AppContext);
-  const { userInfo } = state;
   const {
     handleSubmit,
     control,
@@ -30,35 +29,18 @@ const RegisterScreen = () => {
   } = useForm();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (userInfo) {
-      router.push("/");
-    }
-  }, []);
-
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
-    closeSnackbar();
-    if (password !== confirmPassword) {
-      enqueueSnackbar("Passwords don't match", { variant: "error" });
-      return;
-    }
-    try {
-      const { data } = await axios.post("/api/register", {
-        name,
-        email,
-        password,
+  const submitHandler = async ({ name, email, password }) => {
+    registerRequest({ name, email, password })
+      .then((res) => {
+        dispatch({ type: "USER_LOGIN", payload: res });
+        Cookies.set("userInfo", JSON.stringify(res));
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err.message ? err.message : "Error", {
+          variant: "error",
+        });
       });
-
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      router.push("/");
-
-      enqueueSnackbar("Registered successfully", {
-        variant: "success",
-      });
-    } catch (err) {
-      enqueueSnackbar(getError(err), { variant: "error" });
-    }
   };
 
   return (
