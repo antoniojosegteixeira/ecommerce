@@ -19,9 +19,8 @@ import useStyles from "../utils/styles";
 
 const LoginScreen = () => {
   const classes = useStyles();
-  const router = useRouter();
   const { state, dispatch } = useContext(AppContext);
-  const { userInfo } = state;
+  const router = useRouter();
   const {
     handleSubmit,
     control,
@@ -29,27 +28,21 @@ const LoginScreen = () => {
   } = useForm();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    if (userInfo) {
-      router.push("/");
-    }
-  }, []);
-
-  const submitHandler = async ({ email, password }) => {
-    closeSnackbar();
-    try {
-      const { data } = await axios.post("/api/login", {
-        email,
-        password,
+  const submitHandler = async (userData) => {
+    fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify(userData),
+    })
+      .then(() => {
+        dispatch({ type: "USER_LOGIN", payload: res });
+        Cookies.set("userInfo", JSON.stringify(res));
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      router.push("/");
-    } catch (err) {
-      console.log("erro", err);
-      enqueueSnackbar(err.response?.data.message, { variant: "error" });
-    }
   };
+
+  console.log(state);
 
   return (
     <Layout title="Login">
