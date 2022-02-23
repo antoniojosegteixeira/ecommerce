@@ -10,10 +10,13 @@ handler.post(async (req, res) => {
   await db.connect();
   const user = await User.findOne({ email: req.body.email });
 
+  // Checking if email is taken
   if (user) {
     await db.disconnect();
     return res.status(403).send({ message: "User already exists" });
   }
+
+  // Creating user
   const newUser = await new User({
     name: req.body.name,
     email: req.body.email,
@@ -23,6 +26,8 @@ handler.post(async (req, res) => {
 
   const createdUser = newUser.save();
   await db.disconnect();
+
+  // Creating token
   const token = signToken(createdUser._id);
 
   return res.send({
