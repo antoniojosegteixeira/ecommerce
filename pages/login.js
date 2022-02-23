@@ -33,7 +33,10 @@ const LoginScreen = () => {
       method: "POST",
       body: JSON.stringify(userData),
     })
-      .then(() => {
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
         dispatch({ type: "USER_LOGIN", payload: res });
         Cookies.set("userInfo", JSON.stringify(res));
       })
