@@ -33,6 +33,7 @@ const LoginScreen = () => {
     loginRequest(userData)
       .then((res) => {
         dispatch({ type: "USER_LOGIN", payload: res });
+        Cookies.set("userInfo", JSON.stringify(res));
       })
       .catch((err) => {
         enqueueSnackbar(err.message ? err.message : "Error", {
@@ -40,6 +41,8 @@ const LoginScreen = () => {
         });
       });
   };
+
+  console.log(Cookies.get("userInfo"));
 
   return (
     <Layout title="Login">
