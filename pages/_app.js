@@ -3,6 +3,8 @@ import { StoreProvider } from "../utils/AppContext";
 import "../styles/globals.css";
 import { SnackbarProvider } from "notistack";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { SWRConfig } from "swr";
+import fetcher from "../swr/config/fetcher";
 
 const MyApp = ({ Component, pageProps }) => {
   const [mounted, setMounted] = useState(false);
@@ -18,15 +20,17 @@ const MyApp = ({ Component, pageProps }) => {
 
   if (mounted) {
     return (
-      <SnackbarProvider
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <StoreProvider>
-          <PayPalScriptProvider deferLoading={true}>
-            <Component {...pageProps} />
-          </PayPalScriptProvider>
-        </StoreProvider>
-      </SnackbarProvider>
+      <SWRConfig value={{ fetcher }}>
+        <SnackbarProvider
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <StoreProvider>
+            <PayPalScriptProvider deferLoading={true}>
+              <Component {...pageProps} />
+            </PayPalScriptProvider>
+          </StoreProvider>
+        </SnackbarProvider>
+      </SWRConfig>
     );
   } else return null;
 };
