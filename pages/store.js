@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRouter } from "next/dist/client/router";
-import { AppContext } from "../utils/AppContext";
-import { getProduct } from "../http/cartOperations";
 import useStyles from "../utils/styles";
 import useSWR from "swr";
-import { useSnackbar } from "notistack";
-import { checkItemStock } from "../helpers/cartHelpers";
+import { useCart } from "../context/cart/useCart";
 
 import Layout from "../components/Layout";
 import NextLink from "next/link";
@@ -25,41 +22,13 @@ import {
 
 export default function Store() {
   const router = useRouter();
-  const { state, dispatch } = useContext(AppContext);
   const classes = useStyles();
-  const { data, error } = useSWR("/api/products");
-  const { enqueueSnackbar } = useSnackbar();
-
-  const addItemToCart = (product, quantity) => {
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
-    router.push("/cart");
-  };
-
-  const showOutOfStockError = () => {
-    enqueueSnackbar("Sorry. Product is out of stock", {
-      variant: "error",
-    });
-  };
+  const { data } = useSWR("/api/products");
+  const { addProduct } = useCart();
 
   const addToCartHandler = async (product) => {
-    try {
-      //Validate product
-      const response = await getProduct(product._id);
-      const quantity = checkItemStock(state.cart.cartItems, response.data);
-
-      // Check if there's stock
-      if (product.countInStock < quantity) {
-        showOutOfStockError();
-        return;
-      } else {
-        addItemToCart(response.data, quantity);
-      }
-    } catch (err) {
-      // Network error
-      enqueueSnackbar("Coudn't validate the request", {
-        variant: "error",
-      });
-    }
+    addProduct(product);
+    router.push("/cart");
   };
 
   return (
