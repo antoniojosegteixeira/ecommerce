@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/dist/client/router";
 import useStyles from "../utils/styles";
 import useSWR from "swr";
-import { useCart } from "../context/cart/useCart";
+import { useCart } from "../hooks/cart/useCart";
 
 import Layout from "../components/Layout";
 import NextLink from "next/link";

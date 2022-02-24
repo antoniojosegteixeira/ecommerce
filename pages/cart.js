@@ -3,7 +3,7 @@ import { AppContext } from "../utils/AppContext";
 import axios from "axios";
 import { useRouter } from "next/router";
 import useStyles from "../utils/styles";
-import { useCart } from "../context/cart/useCart";
+import { useCart } from "../hooks/cart/useCart";
 import Image from "next/image";
 import Layout from "../components/Layout";
 import NextLink from "next/link";
