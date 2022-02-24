@@ -4,6 +4,10 @@ import { AppContext } from "../utils/AppContext";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout";
 import axios from "axios";
+import NextLink from "next/link";
+import useStyles from "../utils/styles";
+import useSWR from "swr";
+
 import {
   Card,
   CardActionArea,
@@ -17,16 +21,15 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import NextLink from "next/link";
-import data from "../utils/data";
-import db from "../utils/db";
-import Product from "../models/Product";
-import useStyles from "../utils/styles";
 
-export default function Store(props) {
-  const { products } = props;
+export default function Store() {
+  // Router
   const router = useRouter();
+  // Context
   const { state, dispatch } = useContext(AppContext);
+  // Get products throught swr
+  const { data, error } = useSWR("/api/products");
+  // Styles
   const classes = useStyles();
 
   const addToCartHandler = async (product) => {
@@ -100,16 +103,4 @@ export default function Store(props) {
       </Container>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  await db.connect();
-  const products = await Product.find().lean();
-  await db.disconnect();
-
-  return {
-    props: {
-      products: await db.convertDocToJson(products),
-    },
-  };
 }
