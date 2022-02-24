@@ -33,15 +33,10 @@ const CartScreen = () => {
   const { cartItems } = state.cart;
   const { userInfo } = state;
   const classes = useStyles();
-  const { removeProduct } = useCart();
+  const { removeProduct, updateProduct } = useCart();
 
-  const updateCartHandler = async (item, quantity) => {
-    const data = await axios.get(`/api/products/${item._id}`);
-    if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
-      return;
-    }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  const updateProductHandler = async (item, quantity) => {
+    updateProduct(item, quantity);
   };
 
   const removeProductHandler = async (product) => {
@@ -111,7 +106,7 @@ const CartScreen = () => {
                           <Select
                             value={item.quantity}
                             onChange={(e) =>
-                              updateCartHandler(item, e.target.value)
+                              updateProductHandler(item, e.target.value)
                             }
                           >
                             {[...Array(item.countInStock).keys()].map((x) => (

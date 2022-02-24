@@ -33,5 +33,20 @@ export function useCart() {
     dispatch({ type: "CART_REMOVE_ITEM", payload: response.data });
   };
 
-  return { addProduct, removeProduct };
+  const updateProduct = async (product, quantity) => {
+    const response = await getProduct(product._id);
+    const validProduct = response.data;
+    if (validProduct.countInStock < quantity) {
+      enqueueSnackbar("Sorry. Product is out of stock", {
+        variant: "error",
+      });
+      return;
+    }
+    dispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...validProduct, quantity },
+    });
+  };
+
+  return { addProduct, removeProduct, updateProduct };
 }
