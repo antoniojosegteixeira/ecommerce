@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
-import Layout from "../components/Layout";
 import { AppContext } from "../utils/AppContext";
-import NextLink from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
+import useStyles from "../utils/styles";
+import { useCart } from "../context/cart/useCart";
 import Image from "next/image";
+import Layout from "../components/Layout";
+import NextLink from "next/link";
 import {
   Container,
   Grid,
@@ -22,16 +26,14 @@ import {
   ListItem,
   NoSsr,
 } from "@material-ui/core";
-import axios from "axios";
-import { useRouter } from "next/router";
-import useStyles from "../utils/styles";
 
 const CartScreen = () => {
   const router = useRouter();
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const { cartItems } = state.cart;
   const { userInfo } = state;
   const classes = useStyles();
+  const { removeProduct } = useCart();
 
   const updateCartHandler = async (item, quantity) => {
     const data = await axios.get(`/api/products/${item._id}`);
@@ -42,9 +44,8 @@ const CartScreen = () => {
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
   };
 
-  const removeItemHandler = async (item) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
-    dispatch({ type: "CART_REMOVE_ITEM", payload: data });
+  const removeProductHandler = async (product) => {
+    removeProduct(product);
   };
 
   const checkOutHandler = () => {
@@ -125,7 +126,7 @@ const CartScreen = () => {
                           <Button
                             variant="contained"
                             color="secondary"
-                            onClick={() => removeItemHandler(item)}
+                            onClick={() => removeProductHandler(item)}
                           >
                             x
                           </Button>

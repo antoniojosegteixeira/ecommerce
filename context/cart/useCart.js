@@ -27,5 +27,11 @@ export function useCart() {
     }
   };
 
-  return { addProduct };
+  const removeProduct = async (product) => {
+    // Validate product
+    const response = await getProduct(product._id);
+    dispatch({ type: "CART_REMOVE_ITEM", payload: response.data });
+  };
+
+  return { addProduct, removeProduct };
 }
