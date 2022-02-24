@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import Cookies from "js-cookie";
 
 // React hook form and yup validator
 import { Controller, useForm } from "react-hook-form";
@@ -10,9 +9,6 @@ import loginSchema from "../validation/loginValidation";
 
 // Auth hook
 import { useAuth } from "../hooks/auth/useAuth";
-
-// Notification library
-import { useSnackbar } from "notistack";
 
 // Style
 import useStyles from "../utils/styles";

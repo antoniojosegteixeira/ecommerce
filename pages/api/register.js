@@ -13,7 +13,7 @@ handler.post(async (req, res) => {
   // Checking if email is taken
   if (user) {
     await db.disconnect();
-    return res.status(403).send({ message: "User already exists" });
+    return res.status(403).send("User already exists");
   }
 
   // Creating user

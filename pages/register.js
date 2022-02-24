@@ -3,15 +3,14 @@ import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
 
 import NextLink from "next/link";
-import Cookies from "js-cookie";
 
 // React hook form and yup validator
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import registerSchema from "../validation/registerValidation";
 
-// Register function
-import registerRequest from "../http/registerRequest";
+// Use Auth
+import { useAuth } from "../hooks/auth/useAuth";
 
 // Notification library
 import { useSnackbar } from "notistack";
@@ -33,7 +32,7 @@ import {
 const RegisterScreen = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { state, dispatch } = useContext(AppContext);
+  const { registerUser } = useAuth();
   const {
     handleSubmit,
     control,
@@ -41,21 +40,10 @@ const RegisterScreen = () => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const { enqueueSnackbar } = useSnackbar();
 
   /// Submit form data to backend
   const submitHandler = async ({ name, email, password }) => {
-    registerRequest({ name, email, password })
-      .then((res) => {
-        dispatch({ type: "USER_LOGIN", payload: res });
-        Cookies.set("userInfo", JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-        enqueueSnackbar(err.message ? err.message : "Error", {
-          variant: "error",
-        });
-      });
+    registerUser({ name, email, password });
   };
 
   return (
