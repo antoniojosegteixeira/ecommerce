@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import { AppContext } from "../utils/AppContext";
 import NextLink from "next/link";
 import Cookies from "js-cookie";
 
@@ -9,8 +8,8 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import loginSchema from "../validation/loginValidation";
 
-// Login function
-import loginRequest from "../http/loginRequest";
+// Auth hook
+import { useAuth } from "../hooks/auth/useAuth";
 
 // Notification library
 import { useSnackbar } from "notistack";
@@ -31,7 +30,6 @@ import {
 
 const LoginScreen = () => {
   const classes = useStyles();
-  const { state, dispatch } = useContext(AppContext);
   const router = useRouter();
   const {
     handleSubmit,
@@ -40,19 +38,11 @@ const LoginScreen = () => {
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
-  const { enqueueSnackbar } = useSnackbar();
 
-  const submitHandler = async (userData) => {
-    loginRequest(userData)
-      .then((res) => {
-        dispatch({ type: "USER_LOGIN", payload: res });
-        Cookies.set("userInfo", JSON.stringify(res));
-      })
-      .catch((err) => {
-        enqueueSnackbar(err.response?.data ? err.response.data : "Error", {
-          variant: "error",
-        });
-      });
+  const { loginUser } = useAuth();
+
+  const submitHandler = (userData) => {
+    loginUser(userData);
   };
 
   return (
