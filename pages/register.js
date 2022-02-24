@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import { AppContext } from "../utils/AppContext";
 
 import NextLink from "next/link";
 
@@ -11,9 +10,6 @@ import registerSchema from "../validation/registerValidation";
 
 // Use Auth
 import { useAuth } from "../hooks/auth/useAuth";
-
-// Notification library
-import { useSnackbar } from "notistack";
 
 // Style
 import useStyles from "../utils/styles";
@@ -31,7 +27,6 @@ import {
 
 const RegisterScreen = () => {
   const classes = useStyles();
-  const router = useRouter();
   const { registerUser } = useAuth();
   const {
     handleSubmit,
