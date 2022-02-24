@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { AppContext } from "../utils/AppContext";
-import axios from "axios";
 import { useRouter } from "next/router";
 import useStyles from "../utils/styles";
 import { useCart } from "../hooks/cart/useCart";
