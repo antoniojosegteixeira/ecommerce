@@ -1,12 +1,11 @@
 import React from "react";
 import db from "../../utils/db";
-import axios from "axios";
 import Product from "../../models/Product";
-import Layout from "../../components/Layout";
+import { useRouter } from "next/router";
+import { useCart } from "../../hooks/cart/useCart";
+
 import NextLink from "next/link";
-import { useRouter } from "next/dist/client/router";
-import { useContext } from "react";
-import { AppContext } from "../../utils/AppContext";
+import Layout from "../../components/Layout";
 import {
   Link,
   Grid,
@@ -22,20 +21,13 @@ import Image from "next/image";
 import useStyles from "../../utils/styles";
 
 const ProductScreen = (props) => {
-  const router = useRouter();
   const classes = useStyles();
   const { product } = props;
-  const { state, dispatch } = useContext(AppContext);
+  const { addProduct } = useCart();
+  const router = useRouter();
 
   const addToCartHandler = async () => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
-    const existItem = state.cart.cartItems.find((e) => e._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
-      return;
-    }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    addProduct(product);
     router.push("/cart");
   };
 
