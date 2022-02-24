@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/dist/client/router";
 import { AppContext } from "../utils/AppContext";
-import styles from "../styles/Home.module.css";
-import Layout from "../components/Layout";
-import axios from "axios";
-import NextLink from "next/link";
+import { getProduct } from "../http/cartOperations";
 import useStyles from "../utils/styles";
 import useSWR from "swr";
+import { useSnackbar } from "notistack";
+import { checkItemStock } from "../helpers/cartHelpers";
 
+import Layout from "../components/Layout";
+import NextLink from "next/link";
 import {
   Card,
   CardActionArea,
@@ -23,25 +24,42 @@ import {
 } from "@material-ui/core";
 
 export default function Store() {
-  // Router
   const router = useRouter();
-  // Context
   const { state, dispatch } = useContext(AppContext);
-  // Get products throught swr
-  const { data, error } = useSWR("/api/products");
-  // Styles
   const classes = useStyles();
+  const { data, error } = useSWR("/api/products");
+  const { enqueueSnackbar } = useSnackbar();
 
-  const addToCartHandler = async (product) => {
-    const { data } = await axios.get(`/api/products/${product._id}`);
-    const existItem = state.cart.cartItems.find((e) => e._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
-      return;
-    }
+  const addItemToCart = (product, quantity) => {
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     router.push("/cart");
+  };
+
+  const showOutOfStockError = () => {
+    enqueueSnackbar("Sorry. Product is out of stock", {
+      variant: "error",
+    });
+  };
+
+  const addToCartHandler = async (product) => {
+    try {
+      //Validate product
+      const response = await getProduct(product._id);
+      const quantity = checkItemStock(state.cart.cartItems, response.data);
+
+      // Check if there's stock
+      if (product.countInStock < quantity) {
+        showOutOfStockError();
+        return;
+      } else {
+        addItemToCart(response.data, quantity);
+      }
+    } catch (err) {
+      // Network error
+      enqueueSnackbar("Coudn't validate the request", {
+        variant: "error",
+      });
+    }
   };
 
   return (
@@ -56,8 +74,8 @@ export default function Store() {
           Products
         </Typography>
         <Grid container spacing={3}>
-          {products &&
-            products.map((product) => {
+          {data &&
+            data.map((product) => {
               return (
                 <Grid item md={4} key={product.name}>
                   <Card className={classes.boxShadow}>
