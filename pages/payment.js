@@ -31,7 +31,7 @@ const PaymentScreen = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (!userAddress.address) {
+    if (!userAddress) {
       router.push("/shipping");
     } else {
       setPaymentMethod(Cookies.get("paymentMethod" || ""));

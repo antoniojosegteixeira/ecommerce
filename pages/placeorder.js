@@ -1,7 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
-import axios from "axios";
+import { useSnackbar } from "notistack";
+import { useShipping } from "../hooks/shipping/useShipping";
+import { calculateTotalCartPrice } from "../helpers/cartHelpers";
+
 import Layout from "../components/Layout";
 import CheckoutWizard from "../components/CheckoutWizard";
 import Image from "next/image";
@@ -26,14 +29,13 @@ import {
   Container,
 } from "@material-ui/core";
 import NextLink from "next/link";
-import Cookies from "js-cookie";
-import { useSnackbar } from "notistack";
 import useStyles from "../utils/styles";
 
 const PlaceOrderScreen = () => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
+  const { placeOrder } = useShipping();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   // Context state
@@ -50,42 +52,19 @@ const PlaceOrderScreen = () => {
   }, []);
 
   // Calculating item price
-  const round = (num) => Math.round((num + Number.EPSILON) * 100) / 100;
-  const itemsPrice = round(
-    cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
-  );
-  const shippingPrice = itemsPrice > 200 ? 0 : 15;
-  const totalPrice = round(itemsPrice + shippingPrice);
+  const { totalPrice, itemsPrice, shippingPrice } =
+    calculateTotalCartPrice(cartItems);
 
-  // Request
-  const placeOrderHandler = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.post(
-        "/api/orders",
-        {
-          orderItems: cartItems,
-          userAddress,
-          paymentMethod,
-          itemsPrice,
-          shippingPrice,
-          totalPrice,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
-      dispatch({ type: "CART_CLEAR" });
-      Cookies.remove("cartItems");
-      setLoading(false);
-      console.log(data);
-      router.push(`/order/${data._id}`);
-    } catch (err) {
-      setLoading(false);
-      enqueueSnackbar(err.response?.data?.message, { variant: "error" });
-    }
+  // Place order request
+  const placeOrderHandler = () => {
+    placeOrder({
+      orderItems: cartItems,
+      userAddress,
+      paymentMethod,
+      itemsPrice,
+      shippingPrice,
+      totalPrice,
+    });
   };
 
   return (
