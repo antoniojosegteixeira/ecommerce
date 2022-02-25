@@ -70,7 +70,5 @@ export function useAuth() {
       });
   };
 
-  console.log(state.userInfo);
-
   return { loginUser, logoutUser, registerUser, updateUser };
 }
