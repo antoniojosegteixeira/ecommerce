@@ -7,3 +7,11 @@ export const registerRequest = async (userData) => {
 export const loginRequest = async (userData) => {
   return axios.post("/api/login", userData);
 };
+
+export const userUpdateRequest = async (userData, token) => {
+  return axios.put("/api/profile", userData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
