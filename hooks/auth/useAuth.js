@@ -17,8 +17,8 @@ export function useAuth() {
   const loginUser = async (userData) => {
     loginRequest(userData)
       .then((res) => {
-        dispatch({ type: "USER_LOGIN", payload: res });
-        Cookies.set("userInfo", JSON.stringify(userData));
+        dispatch({ type: "USER_LOGIN", payload: res.data });
+        Cookies.set("userInfo", JSON.stringify(res.data));
         router.push("/");
       })
       .catch((err) => {
@@ -38,8 +38,8 @@ export function useAuth() {
   const registerUser = async (userData) => {
     registerRequest(userData)
       .then((res) => {
-        dispatch({ type: "USER_LOGIN", payload: res });
-        Cookies.set("userInfo", JSON.stringify(res));
+        dispatch({ type: "USER_LOGIN", payload: res.data });
+        Cookies.set("userInfo", JSON.stringify(res.data));
         enqueueSnackbar("Register successful", {
           variant: "success",
         });
