@@ -2,8 +2,13 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
 import NextLink from "next/link";
+
+// React hook form and yup validator
 import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
+import { yupResolver } from "@hookform/resolvers/yup";
+import registerSchema from "../validation/registerValidation";
+
+// Use Auth
 import { useAuth } from "../hooks/auth/useAuth";
 
 import useStyles from "../utils/styles";
@@ -38,7 +43,9 @@ export default function ProfileScreen() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
 
   useEffect(() => {
     if (!userInfo) {
