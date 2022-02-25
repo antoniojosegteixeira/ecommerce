@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
 import Cookies from "js-cookie";
+import { useSnackbar } from "notistack";
+import { useShipping } from "../hooks/shipping/useShipping";
+import useStyles from "../utils/styles";
+
 import Layout from "../components/Layout";
 import CheckoutWizard from "../components/CheckoutWizard";
 import {
@@ -14,13 +18,12 @@ import {
   FormControl,
   Button,
 } from "@material-ui/core";
-import { useSnackbar } from "notistack";
-import useStyles from "../utils/styles";
 
 const PaymentScreen = () => {
+  const { addPaymentMethod } = useShipping();
   const classes = useStyles();
   const router = useRouter();
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const {
     cart: { userAddress },
   } = state;
@@ -40,8 +43,7 @@ const PaymentScreen = () => {
     if (!paymentMethod) {
       enqueueSnackbar("Select the payment method", { variant: "error" });
     } else {
-      dispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethod });
-      Cookies.set("paymentMethod", paymentMethod);
+      addPaymentMethod(paymentMethod);
       router.push("/placeorder");
     }
   };
