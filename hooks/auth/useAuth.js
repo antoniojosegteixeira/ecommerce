@@ -4,7 +4,11 @@ import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
-import { loginRequest, registerRequest } from "../../http/userOperations";
+import {
+  loginRequest,
+  registerRequest,
+  userUpdateRequest,
+} from "../../http/userOperations";
 
 export function useAuth() {
   const { state, dispatch } = useContext(AppContext);
@@ -49,5 +53,24 @@ export function useAuth() {
       });
   };
 
-  return { loginUser, logoutUser, registerUser };
+  const updateUser = async (userData) => {
+    userUpdateRequest(userData, state.userInfo?.token)
+      .then((res) => {
+        dispatch({ type: "USER_UPDATE", payload: res.data });
+        Cookies.set("userInfo", JSON.stringify(res.data));
+        router.push("/");
+
+        enqueueSnackbar("User updated successfully!", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        enqueueSnackbar(err.response?.data.message, { variant: "error" });
+      });
+  };
+
+  console.log(state.userInfo);
+
+  return { loginUser, logoutUser, registerUser, updateUser };
 }
