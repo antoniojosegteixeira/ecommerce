@@ -4,10 +4,7 @@ import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
-// Login function
-import loginRequest from "../../http/loginRequest";
-// Register function
-import registerRequest from "../../http/registerRequest";
+import { loginRequest, registerRequest } from "../../http/userOperations";
 
 export function useAuth() {
   const { state, dispatch } = useContext(AppContext);
