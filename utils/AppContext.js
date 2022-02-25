@@ -59,6 +59,8 @@ const reducer = (state, action) => {
         userInfo: null,
         cart: { cartItems: [], userAddress: {}, paymentMethod: "" },
       };
+    case "USER_UPDATE":
+      return { ...state, userInfo: { ...state.userInfo, ...action.payload } };
 
     case "SAVE_SHIPPING_ADDRESS":
       return { ...state, cart: { ...state.cart, userAddress: action.payload } };
