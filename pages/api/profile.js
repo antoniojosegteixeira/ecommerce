@@ -3,34 +3,44 @@ import db from "../../utils/db";
 import User from "../../models/User";
 import bcrypt from "bcryptjs";
 import { signToken } from "../../utils/auth";
+import { isAuth } from "../../utils/auth";
 
 const handler = nc();
 
-handler.post(async (req, res) => {
+handler.use(isAuth);
+
+handler.put(async (req, res) => {
   await db.connect();
-  const user = await User.findOne({ email: req.body.email });
 
-  if (user) {
-    await db.disconnect();
-    return res.status(403).send({ message: "User already exists" });
+  // Check if email is taken
+  const isEmailTaken = await User.findOne({ email: req.body.email });
+  if (isEmailTaken) {
+    res.status(409).send("Email already taken");
   }
-  const newUser = await new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password),
-    isAdmin: false,
-  });
 
-  const createdUser = newUser.save();
-  await db.disconnect();
-  const token = signToken(createdUser._id);
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { id: req.userId },
+      {
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+    console.log(updatedUser);
 
-  return res.send({
-    token,
-    name: newUser.name,
-    email: newUser.email,
-    isAdmin: newUser.isAdmin,
-  });
+    return res.send({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 export default handler;
