@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
-import axios from "axios";
 import NextLink from "next/link";
-import Cookies from "js-cookie";
-import { getError } from "../utils/error";
+import { Controller, useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
+import { useAuth } from "../hooks/auth/useAuth";
+
+import useStyles from "../utils/styles";
 import Layout from "../components/Layout";
 import {
   Grid,
@@ -25,71 +27,31 @@ import {
   ListItemText,
   Button,
 } from "@material-ui/core";
-import { Controller, useForm } from "react-hook-form";
-import { useSnackbar } from "notistack";
-import useStyles from "../utils/styles";
 
 export default function ProfileScreen() {
   const { state, dispatch } = useContext(AppContext);
   const { userInfo } = state;
   const router = useRouter();
   const classes = useStyles();
-
+  const { updateUser } = useAuth();
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (!userInfo) {
       router.push("/login");
     }
+  });
 
-    // Request to api
-    // Get the full order through the id
-    const fetchOrder = async () => {
-      try {
-        dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/orders/history`, {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
-      } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
-      }
-    };
-
-    fetchOrder();
-  }, []);
-
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
-    closeSnackbar();
-    if (password !== confirmPassword) {
-      enqueueSnackbar("Passwords don't match", { variant: "error" });
-      return;
-    }
-    try {
-      const { data } = await axios.put("/api/profile", {
-        name,
-        email,
-        password,
-      });
-
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      router.push("/");
-
-      enqueueSnackbar("User updated successfully!", {
-        variant: "success",
-      });
-    } catch (err) {
-      enqueueSnackbar(err.response?.data.message, { variant: "error" });
-      console.log(err);
-    }
+  const submitHandler = async (userData) => {
+    updateUser({
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+    });
   };
 
   return (
