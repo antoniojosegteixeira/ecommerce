@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../utils/AppContext";
 import Cookies from "js-cookie";
+import { useShipping } from "../hooks/shipping/useShipping";
 // React hook form and yup validator
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,10 +16,6 @@ import {
   Typography,
   TextField,
   Button,
-  Link,
-  Step,
-  Stepper,
-  StepLabel,
 } from "@material-ui/core";
 import useStyles from "../utils/styles";
 
@@ -26,6 +23,7 @@ const ShippingScreen = () => {
   const router = useRouter();
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
+  const { addShippingAddress } = useShipping();
 
   // Context state
   const {
@@ -56,33 +54,8 @@ const ShippingScreen = () => {
   }, []);
 
   // Submit
-  const submitHandler = async ({
-    fullName,
-    address,
-    city,
-    state,
-    postalCode,
-  }) => {
-    dispatch({
-      type: "SAVE_SHIPPING_ADDRESS",
-      payload: {
-        fullName,
-        address,
-        city,
-        state,
-        postalCode,
-      },
-    });
-    Cookies.set(
-      "userAddress",
-      JSON.stringify({
-        fullName,
-        address,
-        city,
-        state,
-        postalCode,
-      })
-    );
+  const submitHandler = (shippingData) => {
+    addShippingAddress(shippingData);
     router.push("/payment");
   };
 

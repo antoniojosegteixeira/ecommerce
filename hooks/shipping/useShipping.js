@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AppContext } from "../../utils/AppContext";
-import { getProduct } from "../../http/cartOperations";
 import { useSnackbar } from "notistack";
 
 export function useShipping() {
